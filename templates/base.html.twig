@@ -37,7 +37,25 @@
 
                             <li><a href="#" >Categories</a></li>
 
-                            <li><a href="#" >Admin</a></li>
+                            {% if app.user is null %}
+                                <li><a href="{{ path('app_register') }}" >Ouvrir un compte</a></li>
+                            {% endif %}
+
+                            {% if app.user is not null %}
+                                <li><a href="{{ path('app_account') }}" >Mon compte</a></li>
+                            {% endif %}
+
+                            {% if app.user is null %}
+                                <li><a href="{{ path('app_login') }}" >Se connecter</a></li>
+                            {% endif %}
+
+                            {% if app.user is not null %}
+                                <li><a href="{{ path('app_logout') }}" >Se déconnecter</a></li>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin') }}">Admin</a></li>
+                            {% endif %}
                             
                         </ul>
             </a>
