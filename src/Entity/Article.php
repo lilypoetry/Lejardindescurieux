@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\File\File;
@@ -39,6 +40,9 @@ class Article
         maxSizeMessage: 'Cette image ne doit pas dépasser les {{ limit }} {{ suffix }}'
     )]
     private $coverFile;
+
+    // #[ORM\Column(type: 'datetime')]
+    // private $createdAt;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updated_at;
@@ -117,11 +121,23 @@ class Article
         $this->coverFile = $coverFile;
 
         if ($coverFile !== null) {
-            $this->updated_at = new DateTimeImmutable();
+            $this->updated_at = new DateTime();
         }
 
         return $this;
     }
+
+   	// public function getCreatedAt(): ?\DateTimeInterface
+    // {
+    //     return $this->createdAt;
+    // }
+
+    // public function setCreateddAt(\DateTimeInterface $createdAt): self
+    // {
+    //     $this->createdAt = $createdAt;
+
+    //     return $this;
+    // }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
