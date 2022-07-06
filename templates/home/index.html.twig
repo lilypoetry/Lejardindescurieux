@@ -39,7 +39,7 @@
 							<p class="info">Acheteur :
 								{{ article.user.userIdentifier }}</p>
 							<p class="info">Prix:
-								{{ article.price }}</p>
+								{{ article.price }} €</p>
 							<p class="info">Ajouté le :
 								{{ article.updatedAt| date('d-m-Y') }}</p>
 							<p class="info">Catégorie :
@@ -52,6 +52,5 @@
 
 	{% endfor %}
 
-	
 
 </div>{% endblock %}
