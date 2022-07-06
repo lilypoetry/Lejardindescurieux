@@ -37,10 +37,8 @@
                         </div>
                     </div>
 
-                {# {% endif %} #}
-
-                <div class="row h-100">
-                    <div class="col-12 my-auto h-100 d-flex align-content-center justify-content-center flex-wrap">
+                    <div class="row h-100">
+                        <div class="col-12 my-auto h-100 d-flex align-content-center justify-content-center flex-wrap">
 
                         {# Boucle pour parcourir tous les articles à afficher #}
                         {% for article in articles %}
@@ -65,7 +63,6 @@
 
                             </div>
 
-
                                 {# <h5 class="card-title text-center mt-4"><a href="{{ path('articles_view', {'id': article.id, 'slug': article.slug}) }}" class="d-block text-center">{{ article.title }}</a></h5>#}
                                 {# <p class="card-text text-center">Catégorie :#}
                                 {# {% for category in article.categories %}#}
@@ -74,10 +71,9 @@
                                 {# le filtre u.truncate permet de couper la description en ajoutant en premier paramètre le nombre de caractère auquels ont souhaite couper + une chaîne de texte indiquant que le texte n'est pas fini  #}
                                 {# <p class="card-text text-center">{{ article.content|striptags|u.truncate(20, '...') }} </p>#}
 
-
                                 {# <a href="{{ path('articles_view', {'id': article.id, 'slug': article.slug}) }}" class="btn btn  color-button btn-small d-block mx-auto d-block position-absolute">Voir l'article</a>#}
                         {% endfor %}
-
+                    </div>
                 {% else %}
 
                     <div class="row">
@@ -85,11 +81,7 @@
                     </div>
 
                 {% endif %}
-
-                {# {% endfor %} #}
-
-                    </div>
-                </div>
+                
                 {# S'il y a des articles, on affiche le menu de pagination #}
                 {% if articles is not empty %}
 
@@ -102,7 +94,6 @@
                     </div>
 
                 {% endif %}
-
 
             </div>
 
