@@ -1,0 +1,23 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Article
+{% endblock %}
+
+{% block body %}
+
+	<div class="container w-50 d-flex align-items-center justify-content-between pb-5">
+		<div>
+			<h6 class="display-5 m-0">Nouvelle article</h6>
+		</div>
+		<a href="{{ path('app_article') }}" title="Nouvelle article" class="btn btn-outline-secondary">
+			Retour à la liste
+		</a>
+	</div>
+	<div class="w-50 mx-auto">
+		{{ form(form) }}
+		</div>
+	</div>
+
+
+{% endblock %}
