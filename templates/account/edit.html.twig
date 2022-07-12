@@ -1,0 +1,26 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer le compte !{% endblock %}
+
+{% block body %}
+    {# Afficher les d'etail d'utilisateur #}
+
+    <div class="container">
+     {# <link href="{{ asset('css/style.css') }}" rel="stylesheet"> #}
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h1>Bonjour {{ app.user.firstname }} </h1>
+        <p>Veuillez-completer votre compte !</p>
+
+      
+        {{ form(form) }}
+
+    </div>
+
+
+{% endblock %}

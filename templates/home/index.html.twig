@@ -1,8 +1,60 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Le Jardin des Curieux{% endblock %}
+
+{% block title %}Bienvenue au Jardin des Curieux !
+{% endblock %}
 
 {% block body %}
-        {# <--- Page d'accueil --> #}
+	{# Page d'accueil #}
 
-{% endblock %}
+	<div
+		class="grid container w-50 py-4">
+		{# {% if app.request.method == 'GET' %} #}
+		<form method="GET" class="pb-4">
+			<select onchange="this.form.submit();" id="id" name="id" class="form-select" aria-label="Default select example">
+				<option selected value="0">Toutes les catégories</option>
+				{% for category in categories %}
+
+					<option value="{{ category.id }}">{{ category.name }}</option>
+
+				{% endfor %}
+			</select>
+		</form>
+		{# {% endif %} #}
+
+		{% for article in articles %}
+
+			<div
+				class="grid-item">
+				{# <a class="text-decoration-none" href="{{ path('detail_article', {id: article.id })}}"> #}
+				<div class="card">
+
+					{% if vich_uploader_asset(article,'coverFile') %}
+						<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('vignette') }}" alt="image du produit">
+					{% endif %}
+
+					<div class="card-content">
+						<h1 class="card-header">{{ article.title }}</h1>
+						<p class="desc">{{ article.description | u.truncate(20,'...') }}</p>
+						<div>
+							<p class="info">Acheteur :
+								{{ article.user.userIdentifier }}</p>
+							<p class="info">Prix:
+								{{ article.price }} €</p>
+							<p class="info">Ajouté le :
+								{{ article.updatedAt| date('d-m-Y') }}</p>
+							<p class="info">Catégorie :
+								{{ article.category.name }}</p>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+	{% endfor %}
+
+
+</div>{% endblock %}
+
+
