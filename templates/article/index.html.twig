@@ -21,10 +21,9 @@
 					<th scope="col">Article</th>
 					<th scope="col">Quantité</th>
                     <th scope="col">Prix</th>
-
-					{% if is_granted('ROLE_ADMIN') %}
+					{# {% if is_granted('ROLE_ADMIN') %} #}
 						<th class="text-center" scope="col">Action</th>
-					{% endif %}
+					{# {% endif %} #}
 				</tr>
 			</thead>
 			<tbody>
@@ -41,6 +40,11 @@
 						</td>
                         <td>
 							{{ article.price }} €
+						</td>
+						<td>
+							<a href="{{ path("add_cart", { id : article.id }) }}" class="btn  btn-success">
+								<i class="fa-solid fa-cart-arrow-down">Ajouter</i>								
+							</a>
 						</td>
 
 						{% if is_granted('ROLE_ADMIN') %}
