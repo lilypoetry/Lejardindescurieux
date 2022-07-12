@@ -13,13 +13,17 @@
 
 			{% if app.user %}
 				<div class="mb-3">
+
 					Vous êtes connecté sous :
+
 					{{ app.user.userIdentifier }},
 					<a href="{{ path('app_logout') }}">Se déconnecter</a>
 				</div>
 			{% endif %}
 
+
 			<h1 class="h3 mb-3 font-weight-normal py-4">Connectez-vous !</h1>
+
 			<label for="inputEmail">Email</label>
 			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
 			<label for="inputPassword">Password</label>
@@ -29,6 +33,7 @@
 			<a class="py-3" href="{{ path('app_forgot_password_request') }}" title="Mot de passe oublié ?">
                     Mot de passe oublié
             </a>
+
 
 			<input
 			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -44,7 +49,9 @@
 			</div>
 
 
+
 			<button class="btn btn-lg btn-primary" type="submit">
+
 				Se connecter
 			</button>
 		</form>
