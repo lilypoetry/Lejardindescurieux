@@ -25,6 +25,7 @@ class Article
     private $title;
 
     #[ORM\Column(type: 'integer')]
+    // #[ORM\Column(type: 'decimal')]
     private $price;
 
     #[ORM\Column(type: 'text')]
@@ -41,11 +42,11 @@ class Article
     )]
     private $coverFile;
 
-    // #[ORM\Column(type: 'datetime')]
-    // private $createdAt;
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[ORM\Column(type: 'datetime')]
     private $updated_at;
+
+    // #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    // private $updated_at;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
@@ -127,29 +128,29 @@ class Article
         return $this;
     }
 
-   	// public function getCreatedAt(): ?\DateTimeInterface
-    // {
-    //     return $this->createdAt;
-    // }
-
-    // public function setCreateddAt(\DateTimeInterface $createdAt): self
-    // {
-    //     $this->createdAt = $createdAt;
-
-    //     return $this;
-    // }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
+   	public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
 
         return $this;
     }
+
+    // public function getUpdatedAt(): ?\DateTimeImmutable
+    // {
+    //     return $this->updated_at;
+    // }
+
+    // public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
+    // {
+    //     $this->updated_at = $updated_at;
+
+    //     return $this;
+    // }
 
     public function getCategory(): ?Category
     {
