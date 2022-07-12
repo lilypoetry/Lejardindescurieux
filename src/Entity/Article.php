@@ -41,11 +41,11 @@ class Article
     )]
     private $coverFile;
 
-    // #[ORM\Column(type: 'datetime')]
-    // private $createdAt;
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[ORM\Column(type: 'datetime')]
     private $updated_at;
+
+    // #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    // private $updated_at;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]

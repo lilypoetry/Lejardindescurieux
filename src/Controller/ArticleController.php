@@ -62,7 +62,7 @@ class ArticleController extends AbstractController
             $this->addFlash('success', 'La modification a bien été enregistrée');
 
             // Redirection vers une autre page
-            return $this->$this->redirectToRoute('app_article');
+            return $this->redirectToRoute('app_article');
         }
         return $this->render('article/edit.html.twig', [
             'form' => $form->createView()
