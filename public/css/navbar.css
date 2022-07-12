@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+
+:root {
+  --orange: fb5607;
+  --yellow: d68c45;
+}
+
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 800; 
+
+  /* Definir la taille de la page */
+  min-height: 80vh;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -60px;
+  background: var(--yellow);
+}
+
+.text {
+  color: white;
+}
+
+.text:hover {
+  color: darkorange;
+}

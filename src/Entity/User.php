@@ -3,15 +3,22 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+
+
 #[UniqueEntity(fields: ['email'], message: 'Cet email est déjà inscrit')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -47,6 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $phone;
 
     #[ORM\Column(type: 'boolean')]
+
     private $isVerified = false;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class, orphanRemoval: true)]
@@ -56,6 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->article = new ArrayCollection();
     }    
+
 
     public function getId(): ?int
     {
@@ -81,8 +90,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+
+
+        // return (string) $this->email;
+        return (string) $this->firstname.' '. $this->lastname;
+
+
     }
+
 
     /**
      * @see UserInterface
@@ -211,6 +226,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
      * @return Collection<int, Article>
      */
@@ -240,5 +256,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
     
 }
