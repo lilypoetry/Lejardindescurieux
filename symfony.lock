@@ -316,6 +316,7 @@
         ]
     },
 
+
     "symfonycasts/reset-password-bundle": {
         "version": "1.13",
         "recipe": {
@@ -328,6 +329,7 @@
             "./config/packages/reset_password.yaml"
         ]
     },
+
 
     "symfonycasts/verify-email-bundle": {
         "version": "v1.10.0"

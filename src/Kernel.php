@@ -18,6 +18,8 @@ class Kernel extends BaseKernel
             new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
         );
 
+
     } */
+
 
 } 
