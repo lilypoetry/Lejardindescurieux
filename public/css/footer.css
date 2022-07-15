@@ -1,6 +1,19 @@
- :root {
-    --orange: fb5607;
-    --yellow: d68c45;
+/* @import url('https://fonts.googleapis.com/css2?family=Arima:wght@100;200;300;400;500;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+    --green: #12492f;
+    --cream: #ffca7a;
+    --yellow: #f0932b;
+    --brown: #ab4327;
+    --white: #ffffff;
+    --aliceblue: aliceblue;
+    --black: black;
+}
+
+ body {
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Arima', cursive; */
  }
  
  footer {

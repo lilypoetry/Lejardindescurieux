@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-// use App\Entity\Article;
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
-// use Doctrine\Persistence\ManagerRegistry;
-// use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class HomeController extends AbstractController
 {
@@ -20,25 +20,30 @@ class HomeController extends AbstractController
     {
         $category = $categoryRepository->findAll();
         $id = $request->query->get("id");
-        $articles = $articleRepository->findBy(['category' => $id]);
+        // $articles = $articleRepository->findBy(['category' => $id]);
 
-        if($id)
-        {
+        // Pour afficher toutes kes articles un page d'accueil
+        $articles = $paginatorInterface->paginate(
+            $articleRepository->findAll(),
+            $request->query->getInt('page', 1),
+            6
+        );
+
+        if ($id) {
             $idcat = $categoryRepository->find($id);
-            if(!$idcat){
-                $this->addFlash('error'," L'id $id n'existe pas");
+            if (!$idcat) {
+                $this->addFlash('error', " L'id $id n'existe pas");
                 return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+            } else {
 
-               }
-               else{
-                
                 $articles = $paginatorInterface->paginate(
                     $articleRepository->findBy(['category' => $id]),
-                    $request->query->getInt('page',1),6
+                    $request->query->getInt('page', 1),
+                    5
                 );
-               }
+            }
         }
-        
+
         return $this->render('home/index.html.twig', [
             'categories' => $category,
             'articles' => $articles,
@@ -59,14 +64,25 @@ class HomeController extends AbstractController
     #[Route('/search', name: 'search')]
     public function handleSearch(Request $request, ArticleRepository $articleRepository, PaginatorInterface $paginatorInterface, CategoryRepository $categoryRepository)
     {
+        /** Création d'une requête permettant de récupérer les articles pour la page actuelle, 
+         * dont le titre ou le contenu contient la recherche de l'utilisateur 
+         * */
         $query = $request->query->get('query');
-        if($query) {
+        $articles = $articleRepository->findAll($query);
+        $categories = $categoryRepository->findAll($query);
+        if ($query) {
+            // Création de la pagination résultats limité par 5
             $articles = $paginatorInterface->paginate(
                 $articleRepository->findArticlesByName($query),
-                $request->query->getInt('page',1),6
+                $request->query->getInt('page', 1),
+                5
             );
-            
+
             $categories = $categoryRepository->findAll($query);
+            // $categories = $paginatorInterface->paginate(
+            //     $categoryRepository->findAll($query),
+            //     $request->query->getInt('page',1),6
+            // );
         }
         // dd($articles);
 
@@ -79,7 +95,7 @@ class HomeController extends AbstractController
     /**
      * Contrôleur de la page affichant les résultats des recherches faites par le formulaire de recherche dans la navbar
      */
-    /* #[Route('/recherche/', name: 'search')]
+    /* #[Route('/recherche/', name: 'research')]
     public function search(Request $request, PaginatorInterface $paginator, ManagerRegistry $doctrine): Response
     {
 
@@ -99,7 +115,7 @@ class HomeController extends AbstractController
 
         // Création d'une requête permettant de récupérer les articles pour la page actuelle, dont le titre ou le contenu contient la recherche de l'utilisateur
         $query = $em
-            ->createQuery('SELECT a FROM App\Entity\Article a WHERE a.title  LIKE :search OR a.description LIKE :search ORDER BY a.updatedAt DESC')
+            ->createQuery('SELECT a FROM App\Entity\Article a WHERE a.title  LIKE :search OR a.description LIKE :search ORDER BY a.updated_at DESC')
             ->setParameters([
                 'search' => '%' . $search . '%',
             ]);
@@ -116,5 +132,4 @@ class HomeController extends AbstractController
             'articles' => $articles,
         ]);
     } */
-
 }

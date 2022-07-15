@@ -1,12 +1,9 @@
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Account Utilisateur !
 {% endblock %}
 
 {% block body %}
-
-	
 
 	<div class="container py-4">
 
@@ -21,18 +18,12 @@
 				<span class="text-primary text-capitalize">
 					{{ app.user.firstname }}
 				</span>
-			</h3>
-
-			{# Demander à utilisateur de completer ses donnée #}
-			<a href="{{ path('edituser', { id: app.user.id }) }}" class=" btn btn-outline-warning">
-				Completer vos données
-			</a>
+			</h3>			
 		</div>
 
-		<a class="btn btn-outline-warning" type="button" href="#">Ajouter un article</a>
-		{% if is_granted('ROLE_ADMIN') %}
-			<a class="btn btn-outline-warning" type="button" href="{{ path('admin') }}">Tableau de bord</a>
-		{% endif %}
+		{# {% if is_granted('ROLE_ADMIN') %}
+				<a class="btn btn-outline-warning" type="button" href="{{ path('new_article') }}">Ajouter un article</a>
+				{% endif %} #}
 
 		<div class="py-4">
 			<p>Téléphone :
@@ -43,41 +34,45 @@
 				{{ app.user.zipcode }}
 				- Ville :
 				{{ app.user.city }}</p>
+
+			{# Demander à utilisateur de completer ses donnée #}
+			<a href="{{ path('edituser', { id: app.user.id }) }}" class=" btn btn-outline-success">
+				Completer vos données
+			</a>
 		</div>
 
-		{# Voir annonce de l'utilisateur #}
-		<h3>Mon panier</h3>
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">Date de commande</th>
-					<th scope="col">Nom de l'article</th>
-					<th scope="col">Quantité</th>
-					<th scope="col">Prix unité</th>
-					<th scope="col">Total</th>
-					<th scope="col">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>€</td>
-					<td>€</td>
-					<td class="d-flex">
-						<ul>
-							<a href="#">Editer</a>
-						</ul>
-						<ul>
-							<a href="#">Supprimer</a>
-						</ul>						
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		{# Voir panier de l'utilisateur #}
+		{# <h3>Mon panier</h3>
+		
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Date de commande</th>
+							<th scope="col">Nom de l'article</th>
+							<th scope="col">Quantité</th>
+							<th scope="col">Prix unité</th>
+							<th scope="col">Total</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Mark</td>
+							<td>Otto</td>
+							<td>€</td>
+							<td>€</td>
+							<td class="d-flex">
+								<ul>
+									<a href="#">Editer</a>
+								</ul>
+								<ul>
+									<a href="#">Supprimer</a>
+								</ul>						
+							</td>
+						</tr>
+					</tbody>
+				</table> #}
 	</div>
-
 
 {% endblock %}

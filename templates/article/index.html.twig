@@ -4,9 +4,17 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container w-50 py-4">
+	<div
+		class="container w-50 py-4">
 
-		<div class="d-flex align-items-center justify-content-between pb-5">
+		{# Afficher le message success #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<div class="d-flex align-items-center justify-content-between">
 			<h1 class='d-flex'>Liste des articles</h1>
 			{% if is_granted('ROLE_ADMIN') %}
 				<a href="{{ path('new_article') }}" class="btn btn-outline-success text-end">
@@ -14,36 +22,59 @@
 				</a>
 			{% endif %}
 		</div>
+
+		<div class="py-5">
+			<form
+				method="GET">
+				{# ?numbers=3 #}
+				<label for="numbers">Nombre d'article par page</label>
+				<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+				<select name="numbers" id="numbers" onchange="this.form.submit();">
+					<option value="5">Choisissez une option</option>
+					<option value="5">5 par page</option>
+					<option value="3">3 par page</option>
+					<option value="1">1 par page</option>
+				</select>
+			</form>
+		</div>
+
+
 		<table class="table">
 			<thead>
 				<tr>
-                    <th scope="col">Photo</th>
+					<th scope="col">Photo</th>
 					<th scope="col">Article</th>
 					<th scope="col">Quantité</th>
-                    <th scope="col">Prix</th>
+					<th scope="col">Prix</th>
 					{# {% if is_granted('ROLE_ADMIN') %} #}
-						<th class="text-center" scope="col">Action</th>
+					<th class="text-center" scope="col">Action</th>
 					{# {% endif %} #}
 				</tr>
 			</thead>
 			<tbody>
 				{% for article in articles %}
 					<tr>
-                        <td>
-							<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('vignette') }}" alt="photo d'article" class="">
+						{# <td>
+																			<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('vignette') }}" alt="photo d'article" class="">
+																		</td> #}
+						<td
+							class="py-3">
+							{# Si l'image existe, on l'affiche en appliquant un filtre #}
+							{% if vich_uploader_asset(article, 'coverFile') is not null %}
+								<img src="{{ vich_uploader_asset(article, 'coverFile')|imagine_filter('vignette') }}" alt="{{ article.title }}">
+							{% endif %}
 						</td>
-						<td>
-							{{ article.title }}
+						<td class="py-3">{{ article.title }}</td>
+						<td>{{ article.stock }}</td>
+						<td>{{ article.price }} €</td>
+						<td class="py-3">
+							<a href="{{ path('details_article', { id: article.id }) }}" class="btn btn-outline-success">
+								Voir +
+							</a>
 						</td>
-						<td>
-							{{ article.stock }}
-						</td>
-                        <td>
-							{{ article.price }} €
-						</td>
-						<td>
+						<td class="py-3">
 							<a href="{{ path("add_cart", { id : article.id }) }}" class="btn  btn-success">
-								<i class="fa-solid fa-cart-arrow-down">Ajouter</i>								
+								<i class="fa-solid fa-cart-arrow-down">Ajouter</i>
 							</a>
 						</td>
 
@@ -78,5 +109,9 @@
 				{% endfor %}
 			</tbody>
 		</table>
+
+		{# Affiche la numérotations des pages #}
+		{{ knp_pagination_render(articles) }}
 	</div>
+
 {% endblock %}

@@ -35,21 +35,22 @@
 	<body>
 
 		<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg bg-dark">
+		<nav class="navbar navbar-expand-lg bg">
 			<div class="container-fluid">
-				<a class="navbar-brand text" href="{{ path('app_home') }}">
-					<img src="../imgs/covers/logo2.png" alt="" class="border-rounded">
+				<a class="navbar-brand text logo" href="{{ path('app_home') }}">
+					Lejardindescurieux
+					{# <img src="../imgs/covers/logo2.png" alt="" class="border-rounded"> #}
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<form class="d-flex" role="search" action="{{ path('search') }}">
+				<form class="col-lg-4 d-none d-lg-block list-inline-item d-flex" role="search" action="{{ path('search') }}">
 					<input class="form-control me-2" name="query" type="search" placeholder="Rechercher" aria-label="Search">
 				</form>
 
 				{# Formulaire de recherche dans les articles du site #}
-                {# <form class="col-lg-4 d-none d-lg-block list-inline-item d-flex" method="GET" action="{{ path('search') }}">
+                {# <form class="col-lg-4 d-none d-lg-block list-inline-item d-flex" method="GET" action="{{ path('research') }}">
                     <input name="s" class="border-warning form-control me-2 m-auto" type="search" placeholder="Rechercher" aria-label="Search">
                     <button class="btn btn-outline-danger ms-3" type="submit"><i class="fas fa-search"></i></button>
                 </form> #}
@@ -58,14 +59,20 @@
 					<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item">
-								<a class="nav-link text" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+								<a class="nav-link text" aria-current="page" href="{{ path('app_home') }}">
+									<i class="fa-solid fa-house"></i>
+								</a>
 							</li>
-							<li class="nav-item">
+							{# <li class="nav-item">
 								<a class="nav-link text" href="{{ path('app_article') }}">Articles</a>
-							</li>
+							</li> #}
+							
+							{% if is_granted('ROLE_ADMIN') %}
 							<li class="nav-item">
 								<a class="nav-link text" href="{{ path('app_category') }}">Catégories</a>
 							</li>
+							{% endif %}
+
 							{% if app.user is null %}
 								<li class="nav-item">
 									<a class="nav-link text" href="{{ path('app_register') }}">Ouvrir un compte</a>
@@ -90,15 +97,22 @@
 								</li>
 							{% endif %}
 
+							<li class="nav-item">
+								<a class="nav-link text" href="#">
+									<i class="fa-solid fa-phone-flip"></i>
+								</a>
+							</li>
+
 							{% if is_granted('ROLE_ADMIN') %}
 								<li class="nav-item">
-									<a class="nav-link text" href="{{ path('admin') }}">Admin</a>
+									<a class="nav-link text" href="{{ path('app_admin') }}">Admin</a>
 								</li>
 							{% endif %}
 						</ul>
 					</div>
 				</div>
 			</nav>
+			<div class="gradient"></div>  
 			{% block body %}{% endblock %}
 
 		<footer
