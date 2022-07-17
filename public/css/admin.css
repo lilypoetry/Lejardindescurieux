@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 :root {
-    --green: #12492f;
+    --green: #047942;
     --cream: #ffca7a;
     --yellow: #f0932b;
     --brown: #ab4327;
@@ -15,48 +15,58 @@
     padding: 0;
     font-size: 16px;
 }
-.menuBurger{
+
+.menuBurger {
     display: none;
 }
 
 p {
     margin-bottom: 0;
 }
+
 body {
     font-family: 'Poppins', sans-serif;
     /* font-family: 'Arima', cursive; */
     overflow: hidden;
 }
+
 header {
-    background-color: #2d3436;
+    background-color: var(--green);
     padding: 3px 10px 3px 10px;
 }
-.header{
+
+.header {
     display: flex;
     justify-content: space-between;
 }
+
 .h1 {
     font-size: 1.7rem;
     padding: 3px;
     color: whitesmoke;
     text-decoration: none;
 }
+
 .firstSec {
-    background-color: #2d3436;
+    background-color: var(--green);
     height: 100vh;
     width: 12%;
 }
+
 .menu {
     display: flex;
     flex-direction: column;
 }
+
 .menu a {
     text-decoration: none;
     color: whitesmoke;
 }
+
 .menu a:hover {
     color: rgb(175, 175, 175);
 }
+
 .itemMenu {
     display: flex;
     flex-direction: row;
@@ -68,35 +78,44 @@ header {
     display: flex;
     flex-direction: column;
 }
+
 .itemMenu p {
     margin: 0;
 }
+
 .now {
-    background-color: rgba(17, 17, 17, 0.877);
+    background-color: var(--brown);
 }
-.svgMenu{
+
+.svgMenu {
     fill: whitesmoke !important;
     margin: 0 10px 0 30px;
 }
+
 .arrow {
     width: 20px;
     margin-right: 5px;
     color: whitesmoke;
 }
+
 .test {
     display: flex;
 }
+
 .test p {
     padding-bottom: 15px;
 }
+
 main {
     display: flex;
 }
+
 .secondSec {
     width: 88%;
     display: flex;
     flex-direction: column;
 }
+
 .return {
     background-color: #0984e3;
     padding: 4px 18px;
@@ -105,22 +124,26 @@ main {
     border-radius: 7px;
     margin-right: 50px;
 }
+
 .return svg {
     fill: whitesmoke;
     margin-right: 8px;
 }
+
 .returnDiv {
     display: flex;
     justify-content: end;
     margin-top: 30px;
 }
-.searchBar{
+
+.searchBar {
     width: 40%;
     margin: auto;
     margin-top: 30px;
     display: flex;
     align-items: baseline;
 }
+
 .recherche {
     border: 1px solid #e17055;
     border-radius: 7px;
@@ -131,62 +154,76 @@ main {
     border-bottom-left-radius: 0;
     color: whitesmoke;
 }
+
 .search {
     border: 1px solid #e17055;
     margin-right: 0 !important;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
 }
-    /* Table article */
+
+/* Table article */
 
 .tableArticle {
     width: 83%;
     margin: auto;
     margin-top: 70px;
 }
+
 .tableArticle td {
     border-bottom: #b2bec3 1px solid;
     font-size: 1.1rem;
     text-align: center;
 }
-.tableArticle thead{
-    background-color:  #e17055;
+
+.tableArticle thead {
+    background-color: var(--green);
     color: whitesmoke;
 }
+
 .tableArticle td {
     padding: 18px 10px;
     text-align: center;
 }
-.tableArticle th{
+
+.tableArticle th {
     padding: 14px 10px;
     text-align: center;
 }
+
 .imageArticle {
     padding: 0 !important;
     padding-left: 10px !important;
 }
+
 .paginat {
     margin-top: 40px;
     margin-left: 38%;
 }
+
 .paginat li a:active {
     background-color: #0984e3 !important;
 }
+
 .paginat li a:hover {
     background-color: #0984e3 !important;
 }
+
 .paginat li a:focus {
     background-color: #0984e3 !important;
 }
+
 .paginatUser {
     margin-top: 40px;
     margin-left: 38%;
 }
+
 .action {
     display: flex;
     justify-content: center;
     gap: 40px;
 }
+
 .btnEdit {
     text-decoration: none;
     border: 1px solid #0984e3;
@@ -195,52 +232,65 @@ main {
     color: #0984e3;
     font-size: 15px;
 }
+
 .btnEdit:hover {
     background-color: #0984e3;
     color: white;
 }
+
 .editHover {
     padding: 5px;
     display: flex;
     justify-content: center;
 }
+
 .editHover svg {
     fill: whitesmoke !important;
 }
+
 .editHover p {
     margin-left: 20px;
 }
+
 .editMenu {
     display: flex;
     margin-bottom: 5px;
 }
-    /* Table categorie */
+
+/* Table categorie */
 
 .cate {
     width: 80%;
     margin: auto;
     margin-top: 70px;
 }
+
 .tableCate {
     width: 60%;
     margin: auto;
 }
-.tableCate td{
+
+.tableCate td {
     border-bottom: rgb(102, 102, 102) 1px solid;
     font-size: 1.1rem;
 }
-.tableCate thead{
-    background-color:  #e17055;
+
+.tableCate thead {
+    background-color: var(--green);
     color: whitesmoke;
 }
-.tableCate td, .tableCate th {
+
+.tableCate td,
+.tableCate th {
     padding: 13px 10px 13px 10px;
     text-align: center;
 }
+
 .tableCate tr {
     margin-top: 10px;
 }
-.edit{
+
+.edit {
     width: 75%;
     margin: auto;
     margin-top: 90px;
@@ -250,26 +300,32 @@ main {
     padding: 30px;
     border-radius: 7px;
 }
-.formLeft, .formRight {
+
+.formLeft,
+.formRight {
     width: 45%;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.editButton{
+
+.editButton {
     background-color: #0984e3;
     margin: auto !important;
     color: whitesmoke;
     width: 70%;
     margin-top: 35px !important;
 }
-.editButton:hover{
+
+.editButton:hover {
     background-color: white;
     color: #0984e3;
 }
-.formItem{
+
+.formItem {
     margin-top: 5px;
 }
+
 .btnEditCate {
     text-decoration: none;
     border: 1px solid #0984e3;
@@ -278,11 +334,13 @@ main {
     font-size: 15px;
     padding: 4px 15px;
 }
+
 .btnEditCate:hover {
     background-color: #0984e3;
     color: white;
 }
-.editCate{
+
+.editCate {
     width: 30%;
     margin: auto;
     margin-top: 15%;
@@ -290,55 +348,66 @@ main {
     padding: 50px;
     border-radius: 7px;
 }
+
 .save {
     background-color: #0984e3;
     color: whitesmoke;
     width: 50%;
     margin-top: 20px;
 }
-.try{
+
+.try {
     display: flex;
     justify-content: center;
-    background-color:#e17055;
+    background-color: #e17055;
 }
 
-.btnAjout{
-    margin-top:40px;
+.btnAjout {
+    margin-top: 40px;
     margin-right: 28rem;
     display: flex;
     justify-content: end;
-    
+
 }
+
 .btnAjout a {
     background-color: #0984e3;
 }
-    /* Table Users */
+
+/* Table Users */
 
 .users {
     width: 80%;
     margin: auto;
 }
+
 .tableUsers {
     width: 70%;
     margin: auto;
     margin-top: 70px;
 }
-.tableUsers td{
+
+.tableUsers td {
     border-bottom: rgb(102, 102, 102) 1px solid;
     font-size: 1.1rem;
     text-align: center;
 }
-.tableUsers thead{
-    background-color:  #e17055;
+
+.tableUsers thead {
+    background-color: var(--green);
     color: whitesmoke;
 }
-.tableUsers td, .tableUsers th {
+
+.tableUsers td,
+.tableUsers th {
     padding: 13px 18px 13px 18px;
     text-align: center;
 }
+
 .tableUsers tr {
     margin-top: 10px;
 }
+
 .btnEditProfil {
     text-decoration: none;
     border: 1px solid #0984e3;
@@ -347,21 +416,26 @@ main {
     font-size: 15px;
     padding: 3px 15px;
 }
+
 .btnEditProfil:hover {
     background-color: #0984e3;
     color: white;
 }
+
 .adminChange {
     display: flex;
     justify-content: space-evenly;
 }
-#svg{
+
+#svg {
     fill: whitesmoke;
 }
-.admin{
+
+.admin {
     color: red;
 }
-.userColor{
+
+.userColor {
     color: green;
 }
 
@@ -369,64 +443,79 @@ main {
 
 
 
-@media screen and (min-width: 376px) and (max-width: 575px)
-{
-    .menuBurger{
+@media screen and (min-width: 376px) and (max-width: 575px) {
+    .menuBurger {
         display: block;
     }
-    .action{
+
+    .action {
         display: flex;
         flex-direction: column;
         gap: 20px;
     }
-    body{
+
+    body {
         overflow: scroll;
     }
-    .firstSec{
+
+    .firstSec {
         width: 60%;
     }
+
     .secondSec {
         width: 100%;
     }
+
     .paginat {
         margin-left: 19%;
     }
+
     .action {
         padding: 8px;
     }
-    .tableArticle{
+
+    .tableArticle {
         margin-top: 70px;
     }
-    .tableUsers{
+
+    .tableUsers {
         margin-top: 70px;
         width: 90%;
     }
-    .cate{
+
+    .cate {
         margin-top: 70px;
     }
+
     .tableArticle td {
         padding: 0 10px;
     }
+
     .tableUsers td {
         padding: 20px 10px;
     }
-    .adminChange{
+
+    .adminChange {
         display: flex;
         flex-direction: column;
         gap: 20px;
         padding: 8px 5px !important;
     }
-    .paginatUser{
+
+    .paginatUser {
         margin-left: 10%;
     }
-    .editCate{
+
+    .editCate {
         width: 80%;
         margin-top: 30%;
     }
+
     .searchBar {
         width: 70%;
     }
-    .edit{
+
+    .edit {
         margin-top: 60px;
         margin-bottom: 30px;
         width: 88%;
@@ -434,43 +523,54 @@ main {
         flex-direction: column;
         gap: 0;
     }
-    .formLeft, .formRight {
+
+    .formLeft,
+    .formRight {
         width: 100%;
     }
+
     .tableCate {
         width: 100%;
     }
-    .userName{
+
+    .userName {
         display: none;
     }
 }
 
-@media screen and (min-width: 576px) and (max-width: 1025px){
-    body{
+@media screen and (min-width: 576px) and (max-width: 1025px) {
+    body {
         overflow: scroll;
     }
-    .firstSec{
+
+    .firstSec {
         width: 25%;
         position: sticky;
         top: 0;
     }
-    .action{
+
+    .action {
         flex-direction: column;
         gap: 10px;
     }
-    .tableCate{
+
+    .tableCate {
         width: 90%;
     }
-    .searchBar{
+
+    .searchBar {
         width: 50%;
     }
-    .paginatUser{
+
+    .paginatUser {
         margin-left: 20%;
     }
-    .paginat{
+
+    .paginat {
         margin-left: 20%;
     }
-    .edit{
+
+    .edit {
         margin-top: 60px;
         margin-bottom: 30px;
         width: 88%;
@@ -478,77 +578,123 @@ main {
         flex-direction: column;
         gap: 0;
     }
-    .formLeft, .formRight {
+
+    .formLeft,
+    .formRight {
         width: 100%;
     }
-    .editCate{
+
+    .editCate {
         width: 80%;
         margin-top: 30%;
     }
 }
 
-@media screen and (max-width: 375px){
-    body{
+@media screen and (max-width: 375px) {
+    body {
         overflow: scroll;
     }
+
     header {
         width: 100%;
     }
-    .desc{
+
+    .desc {
         display: none;
     }
-    .paginatUser{
+
+    .paginatUser {
         margin-left: 2.5px;
     }
-    .paginat{
+
+    .paginat {
         margin-left: 20%;
     }
-    .action{
+
+    .action {
         flex-direction: column;
         gap: 10px;
     }
-    .menuBurger{
+
+    .menuBurger {
         display: block;
     }
+
     .h1 {
         font-size: 1.2rem;
     }
-    .article{
+
+    .article {
         width: 100%;
     }
-    .firstSec{
+
+    .firstSec {
         width: 45%;
     }
+
     .searchBar {
         width: 80%;
     }
-    .secondSec{
+
+    .secondSec {
         width: 100%;
     }
+
     .cate {
         margin-top: 70px;
     }
-    .edit{
+
+    .edit {
         width: 90%;
         flex-direction: column;
         gap: 0;
     }
-    .formLeft, .formRight {
+
+    .formLeft,
+    .formRight {
         width: 100%;
     }
+
     .tableCate {
         width: 100%;
     }
-    .editCate{
+
+    .editCate {
         width: 85%;
     }
+
     .tableUsers td {
         padding: 13px 10px;
     }
-    .adminChange{
+
+    .adminChange {
         margin-bottom: -1px;
     }
-    .paginatUser{
+
+    .paginatUser {
         margin-left: 12%;
+    }
+}
+
+/* Table responsive */
+@media (max-width: 700px) {
+    .table thead {
+        display: none;
+    }
+
+    .table tr {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .table td {
+        display: block;
+        text-align: right;
+    }
+
+    .table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
     }
 }

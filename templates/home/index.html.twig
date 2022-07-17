@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
@@ -10,76 +9,97 @@
 {% endblock %}
 
 {% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 	{# Page d'accueil #}
+	<div class="example-wrapper">
 
-	<div class="container w-50 py-4 text-capitalize">
-		{% if is_granted('ROLE_USER') %}
-			Bienvenue	{{ app.user.userIdentifier }} !
-		{% endif %}
-	</div>
+		<div class="py-4 text-capitalize">
+			{% if is_granted('ROLE_USER') %}
+				Bienvenue
+				{{ app.user.userIdentifier }}
+				!
+			{% endif %}
+		</div>
 
-	<div class="container w-50 py-4">
+		<div
+			class="py-4">
 
-		{# {% if app.request.method == 'GET' %} #}
-		<form method="GET" class="pb-4">
-			<select onchange="this.form.submit();" id="id" name="id" class="form-select" aria-label="Default select example">
-				<option selected value="0">Toutes les catégories</option>
-				{% for category in categories %}
+			{# Afficher le message success #}
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
 
-					<option value="{{ category.id }}">{{ category.name }}</option>
+			{# {% if app.request.method == 'GET' %} #}
+			<form method="GET" class="pb-4">
+				<select onchange="this.form.submit();" id="id" name="id" class="form-select" aria-label="Default select example">
+					<option selected value="0">Toutes les catégories</option>
+					{% for category in categories %}
 
-				{% endfor %}
-			</select>
-		</form>
-		{# {% endif %} #}
+						<option value="{{ category.id }}">{{ category.name }}</option>
 
-		{# Pour formulaire d'option affichage nombre d'article par page #}
-		{# ?numbers=3 #}
-		{# <div class="py-5">
-			<form
-				method="GET">				
-				<label for="numbers">Nombre d'article par page</label>
-				<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
-				<select name="numbers" id="numbers" onchange="this.form.submit();">
-					<option value="5">Choisissez une option</option>
-					<option value="5">5 par page</option>
-					<option value="3">3 par page</option>
-					<option value="1">1 par page</option>
+					{% endfor %}
 				</select>
 			</form>
-		</div> #}
+			{# {% endif %} #}
 
-		<div class="grid pb-5">
-		{% for article in articles %}
+			{# Pour formulaire d'option affichage nombre d'article par page #}
+			{# ?numbers=3 #}
+			{# <div class="py-5">
+								<form
+									method="GET">				
+									<label for="numbers">Nombre d'article par page</label>
+									<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+									<select name="numbers" id="numbers" onchange="this.form.submit();">
+										<option value="5">Choisissez une option</option>
+										<option value="5">5 par page</option>
+										<option value="3">3 par page</option>
+										<option value="1">1 par page</option>
+									</select>
+								</form>
+							</div> #}
 
-			<div
-				class="card">
-				<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
-					<div class="imgBx">
+				<div class="grid pb-5"> {% for article in articles %}
 
-						{% if vich_uploader_asset(article,'coverFile') %}
-							<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit">
-						{% endif %}
+					<div class="card">
+						<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
+							<div class="imgBx">
 
-						<div class="card-content">
-							<h2 class="card-header">{{ article.title }}</h2>							
-							<div class="info">
-								<h3 class="price">Prix :
-									{{ article.price }} €</h3>
-								{# <h3 class="category">
-									{{ article.category.name }}</h3> #}
+								{% if vich_uploader_asset(article,'coverFile') %}
+									<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit">
+								{% endif %}
+
+								<div class="card-content">
+									<h2 class="card-header">{{ article.title }}</h2>
+									<div class="info">
+										<h3 class="price">Prix :
+											{{ article.price }}
+											€</h3>
+										{# <h3 class="category">
+										{{ article.category.name }}</h3> #}
+									</div>
+								</div>
 							</div>
-						</div>
+						</a>
 					</div>
-				</a>
-			</div>			
-		{% endfor %}
-		</div>	
+				{% endfor %}
+			</div>
 
-		{{ knp_pagination_render(articles) }}
-		
+			{{ knp_pagination_render(articles) }}
+
+		</div>
 	</div>
 
 {% endblock %}
-
-

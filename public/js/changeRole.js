@@ -23,6 +23,11 @@ buttons.forEach(btn => {
                     document.querySelector(`#roles_${id}`).innerText = "USER";
                     document.querySelector(`#rolesAdmin_${id}`).classList.add('userColor');
                     document.querySelector(`#rolesAdmin_${id}`).classList.remove('admin');
+                }else if (data.role === "ROLE_RESELLER"){
+                    document.querySelector(`#roles_${id}`).innerText = "RESELLER";
+                    document.querySelector(`#rolesUser_${id}`).classList.add('resellerColor');
+                    document.querySelector(`#rolesAdmin_${id}`).classList.remove('admin');
+                    
                 }
             })
             .catch(error => alert(error))

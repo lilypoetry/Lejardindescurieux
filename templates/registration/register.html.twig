@@ -3,14 +3,32 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="container w-50">
+
+    <style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
         {% for flash_error in app.flashes('verify_email_error') %}
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
 
         <h1>Ouvrir un compte !</h1>
 
-        {{ form(registrationForm) }}
+        {# {{ form(registrationForm) }} #}
+        {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm) }}
+        <button class="btn btn-outline-success">{{ button_label|default('Register') }}</button>
+        {{ form_end(registrationForm) }}
     </div>
     
 {% endblock %}

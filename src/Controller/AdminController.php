@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AdminController extends AbstractController
 {
+    // Route pour afficher toutes les articles
     #[Route('/admin', name: 'app_admin')]
     public function index(CategoryRepository $categoryRepository, ArticleRepository $articleRepository, Request $request, PaginatorInterface $paginatorInterface): Response
     {
@@ -43,6 +44,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour afficher les catégories
     #[Route('/admin/categorie', name: 'app_admin_category')]
     public function categorie(CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginatorInterface): Response
     {
@@ -58,6 +60,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour afficher toutes les utilisateur
     #[Route('/admin/users', name: 'app_admin_users')]
     public function users(UserRepository $userRepository, Request $request, PaginatorInterface $paginatorInterface): Response
     {
@@ -79,6 +82,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour supprimer un article
     #[Route('/admin/article/delete/{id}', name: 'app_admin_article_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function deleteArticle(Article $article, Request $request, ArticleRepository $articleRepository): RedirectResponse
     {
@@ -94,6 +98,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour supprimer un catégorie
     #[Route('/admin/categories/delete/{id}', name: 'app_admin_category_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function deleteCate(Category $category, Request $request, CategoryRepository $categoryRepository): RedirectResponse
     {
@@ -111,14 +116,39 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour ajouter un article
+    #[Route('/admin/article/new', name: 'admin_new_article')]
+    public function newArticle(Article $article, Request $request, ArticleRepository $articleRepository): Response
+    {
+        $article = new Article();
+
+        $form = $this->createForm(ArticleFormType::class, $article, [
+            'validation_groups' => ['new']
+        ]);
+        $form->handleRequest($request);
+        //dd($article);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUser($this->getUser());
+            $articleRepository->add($article, true);
+            $this->addFlash('success', 'L\'article a bien été enregistrée');
+            
+            // Redirection vers une autre page
+            return $this->redirectToRoute('app_admin');
+        }
+        
+        return $this->render('admin/newArticle.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    // Route pour editer un article
     #[Route('/admin/article/edit/{id}', name: 'admin_edit_article', requirements: ['id' => '\d+'])]
     public function editArticle($id = null, Article $article, Request $request, ArticleRepository $articleRepository): Response
     {
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
         $idarticle = $articleRepository->find($id);
-
-
 
         if (!$idarticle) {
             $this->addFlash('error', " L'id $id n'existe pas");
@@ -138,6 +168,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour editer un categorie
     #[Route('/category/edit/{id}', name: 'app_admin_category_edit', requirements: ['id' => '\d+'])]
     public function edit($id = null, Category $category, Request $request, CategoryRepository $categoryRepository): Response
     {
@@ -163,6 +194,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour editer le role utilisateur
     #[Route('/admin/users/edit/{id}/{role}', name: 'app_admin_user_role', methods: ['POST'])]
     public function roles(User $user, string $role, UserRepository $userRepository,): JsonResponse
     {

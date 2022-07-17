@@ -4,9 +4,23 @@
 {% block title %}Editer le compte !{% endblock %}
 
 {% block body %}
-    {# Afficher les d'etail d'utilisateur #}
 
-    <div class="container">
+    <style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+    {# Afficher les d'etail d'utilisateur #}
+    
      {# <link href="{{ asset('css/style.css') }}" rel="stylesheet"> #}
 
         {% for message in app.flashes('success') %}

@@ -46,10 +46,10 @@
                     </a>
                 </div>
             {% endif %}
-            <form class="d-flex searchBar" role="search" action="{{ path('app_admin_users') }}">
+            {# <form class="d-flex searchBar" role="search" action="{{ path('app_admin_users') }}">
                 <input class="form-control me-2 search" id="recherche" name="query" type="Rechercher" placeholder="Rechercher" aria-label="Rechercher">
                 <button class="recherche">Recherche</button>
-            </form>
+            </form> #}
             <table class="tableUsers">
                 <thead>
                     <tr>
@@ -68,19 +68,27 @@
                             <td>
                                 {% if user.roles[0] == "ROLE_ADMIN" %}
                                     <p class="admin" id="rolesAdmin_{{ user.id }}">{{user.email}}</p>
-                                {% else %}
+                                {% elseif user.roles[0] == "ROLE_USER" %}
                                     <p class="userColor" id="rolesAdmin_{{ user.id }}">{{user.email}}</p>
+                                {% else %}
+                                    <p class="resellerColor" id="rolesAdmin_{{ user.id }}">{{user.email}}</p>
                                 {% endif %}
                             </td>
+                            
                             <td id="roles_{{ user.id }}" class="td">
                                 {% if user.roles[0] == "ROLE_ADMIN" %}
                                     {{ "ADMIN" }}
-                                {% else %}
+                                {% elseif user.roles[0] == "ROLE_USER" %}
                                     {{ "USER" }}
-                                {% endif %}</td>
+                                {% else %}
+                                    {{ "RESELLER" }}
+                                {% endif %}                                
+                            </td>
+                            
                             <td class="adminChange">
                                 <a data-id="{{ user.id }}" data-role="ROLE_ADMIN" class="btn btn-outline-danger btn-sm role">Admin</a>
-                                <a data-id="{{ user.id }}" data-role="ROLE_USER" class="btn btn-outline-success btn-sm role" id="rolesUser_{{ user.id }}">Users</a>
+                                <a data-id="{{ user.id }}" data-role="ROLE_USER" class="btn btn-outline-success btn-sm role" id="rolesUser_{{ user.id }}">User</a>
+                                <a data-id="{{ user.id }}" data-role="ROLE_RESELLER" class="btn btn-outline-success btn-sm role" id="rolesReseller_{{ user.id }}">Reseller</a>
                             </td>
                         </tr>
                     {% endfor %}
