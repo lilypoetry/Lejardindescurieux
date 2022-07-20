@@ -1,13 +1,17 @@
-<h1>Veuillez-confirmer votre registration !</h1>
+<div class="container">
 
-<p>
-    Veuillez confirmer votre adresse email en cliquant sur le lien suivant :  <br><br>
-    <a href="{{ signedUrl }}">Confirmer mon email</a>.
-    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
+	<h1>Veuillez-confirmer votre registration !</h1>
 
-<p>
-    Bien cordialement,
-    
-    Lejardindescurieux
-</p>
+	<p>
+		Veuillez confirmer votre adresse email en cliquant sur le lien suivant :
+		<br><br>
+		<a href="{{ signedUrl }}">Confirmer mon email</a>.
+			    Ce lien expirera dans
+		{{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+	</p>
+
+	<p>
+		Bien cordialement,    
+		Lejardindescurieux
+	</p>
+</div>

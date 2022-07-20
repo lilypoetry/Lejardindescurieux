@@ -1,0 +1,17 @@
+  .formulaire {    
+    width: 400px;
+    padding: 40px;
+    /* transform: translate(-50%, -50%); */
+    background: rgba(97, 95, 51, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0 10px 15px rgba(31, 30, 30, 0.6);
+    border-radius: 5px;
+  }
+  
+  .formulaire h1 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+  

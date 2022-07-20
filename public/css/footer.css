@@ -3,52 +3,48 @@
 
 :root {
     --green: #12492f;
+    --sauvage: #689d71;
+    --apple: #008000;
     --cream: #ffca7a;
-    --yellow: #f0932b;
-    --brown: #ab4327;
+    --yellow: #DCD7C9;
+    --brown: #CA955C;
     --white: #ffffff;
     --aliceblue: aliceblue;
     --black: black;
+    --metal: #473E46;
+    --mbrown: #464E2E;
+    --silver: #b4b4b4;
 }
 
- body {
+body {
     font-family: 'Poppins', sans-serif;
     /* font-family: 'Arima', cursive; */
- }
- 
- footer {
-    position: absolute;
+}
+
+.footerBox {
+    /* position: fixed; */
+    left: 0;
     bottom: 0;
     width: 100%;
-    z-index: 10;   
-    background-color: var(--orange) !important;
-    padding-bottom: 0;
-}
-
-footer p{
-    padding: none;
-}
-
-footer ul {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    gap: 25px;
-    padding: 0;
-}
-
-footer ul .text {
-    font-size: 20px;
+    background-color: var(--metal);
     color: white;
+    text-align: center;
+    z-index: 20;
 }
 
-footer ul li {
-    list-style-type: none;
-    text-decoration: none;
-    gap: 20px;
+hr .line {
+    width:25%;
+    margin: auto;
 }
+  /* .footerBox {
+    background-color: var(--apple);
+    margin: 10px 0 -200px -10px;
+    width: 1185px;
+    z-index: 1000;
+    position: relative;
+} */
 
- /* footer {
+/* footer {
     position: fixed;
     height: 100px;
     bottom: 0;

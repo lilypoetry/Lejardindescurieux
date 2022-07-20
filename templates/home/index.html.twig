@@ -3,6 +3,16 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('css/grid2.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	{# <link href="{{ asset('css/background.css') }}" rel="stylesheet"> #}
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+		$(document).ready(function () {
+		$('.carousel').carousel({interval: 2000})
+		});
+	</script>
 {% endblock %}
 
 {% block title %}Bienvenue au Jardin des Curieux !
@@ -22,18 +32,37 @@
 		}
 	</style>
 	{# Page d'accueil #}
-	<div class="example-wrapper">
+	<div
+		class="example-wrapper container">
 
-		<div class="py-4 text-capitalize">
+		<!-- Carousel -->
+		{# <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img class="d-block w-100" src="../imgs/slide/03.jpg" alt="First slide">
+				</div>
+				<div class="carousel-item">
+					<img class="d-block w-100" src="../imgs/slide/04.jpg" alt="Second slide">
+				</div>
+				<div class="carousel-item">
+					<img class="d-block w-100" src="../imgs/slide/05.jpg" alt="Third slide">
+				</div>
+			</div>
+		</div> #}
+
+		<div class="py-4">
 			{% if is_granted('ROLE_USER') %}
 				Bienvenue
 				{{ app.user.userIdentifier }}
 				!
+				{% if is_granted('ROLE_ADMIN') %}
+					<p class="fw-lighter">Vous êtes connecté en tant qu'administrateur !</p>
+				{% endif %}
 			{% endif %}
 		</div>
 
 		<div
-			class="py-4">
+			class="pb-2">
 
 			{# Afficher le message success #}
 			{% for message in app.flashes('success') %}
@@ -43,7 +72,7 @@
 			{% endfor %}
 
 			{# {% if app.request.method == 'GET' %} #}
-			<form method="GET" class="pb-4">
+			<form method="GET" class="pb-2">
 				<select onchange="this.form.submit();" id="id" name="id" class="form-select" aria-label="Default select example">
 					<option selected value="0">Toutes les catégories</option>
 					{% for category in categories %}
@@ -57,38 +86,38 @@
 
 			{# Pour formulaire d'option affichage nombre d'article par page #}
 			{# ?numbers=3 #}
-			{# <div class="py-5">
-								<form
-									method="GET">				
-									<label for="numbers">Nombre d'article par page</label>
-									<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
-									<select name="numbers" id="numbers" onchange="this.form.submit();">
-										<option value="5">Choisissez une option</option>
-										<option value="5">5 par page</option>
-										<option value="3">3 par page</option>
-										<option value="1">1 par page</option>
-									</select>
-								</form>
-							</div> #}
+				<div class="py-1"> <form method="GET">
+					<label for="numbers">Nombre d'article par page</label>
+					<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+					<select name="numbers" id="numbers" onchange="this.form.submit();">
+						<option value="5">Choisissez une option</option>
+						<option value="6">6 par page</option>
+						<option value="5">5 par page</option>
+						<option value="3">3 par page</option>
+						<option value="1">1 par page</option>
+					</select>
+				</form>
+			</div>
 
-				<div class="grid pb-5"> {% for article in articles %}
+			<div class="grid pb-2">
+				{% for article in articles %}
 
 					<div class="card">
 						<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
-							<div class="imgBx">
+							<div
+								class="imgBx">
 
-								{% if vich_uploader_asset(article,'coverFile') %}
-									<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit">
-								{% endif %}
-
+								{# {% if vich_uploader_asset(article,'coverFile') %}
+																																																																									<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit">
+																																																																								{% endif %} #}
+								<img src="imgs/covers/{{ article.cover }}" alt="" width="245px">
 								<div class="card-content">
 									<h2 class="card-header">{{ article.title }}</h2>
 									<div class="info">
 										<h3 class="price">Prix :
 											{{ article.price }}
 											€</h3>
-										{# <h3 class="category">
-										{{ article.category.name }}</h3> #}
+										{# <h3 class="category">{{ article.category.name }}</h3> #}
 									</div>
 								</div>
 							</div>

@@ -3,9 +3,30 @@
 {% block title %}Article
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/button.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
+
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
 	<div
-		class="container w-50 py-4">
+		class="example-wrapper py-4">
 
 		{# Afficher le message success #}
 		{% for message in app.flashes('success') %}
@@ -17,13 +38,13 @@
 		<div class="d-flex align-items-center justify-content-between">
 			<h1 class='d-flex'>Liste des articles</h1>
 			{% if is_granted('ROLE_ADMIN') %}
-				<a href="{{ path('new_article') }}" class="btn btn-outline-success text-end">
+				<a href="{{ path('new_article') }}" class="btn button btn-secondary btn-sm text-end">
 					Ajouter une article
 				</a>
 			{% endif %}
 		</div>
 
-		<div class="py-5">
+		<div class="py-3">
 			<form
 				method="GET">
 				{# ?numbers=3 #}
@@ -59,15 +80,18 @@
 																		</td> #}
 						<td
 							class="py-3">
-							{# Si l'image existe, on l'affiche en appliquant un filtre #}
+							{# Si l'image existe, on l'affiche en appliquant un filtre
 							{% if vich_uploader_asset(article, 'coverFile') is not null %}
 								<img src="{{ vich_uploader_asset(article, 'coverFile')|imagine_filter('vignette') }}" alt="{{ article.title }}">
-							{% endif %}
+							{% endif %} #}
+							<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
+								<img src="imgs/covers/{{ article.cover }}" alt="" width="70px">
+							</a>
 						</td>
 						<td class="py-3">{{ article.title }}</td>
 						<td>{{ article.stock }}</td>
 						<td>{{ article.price }} €</td>
-						<td class="py-3">
+						{# <td class="py-3">
 							<a href="{{ path('details_article', { id: article.id }) }}" class="btn btn-outline-success">
 								Voir +
 							</a>
@@ -76,29 +100,25 @@
 							<a href="{{ path("add_cart", { id : article.id }) }}" class="btn  btn-success">
 								<i class="fa-solid fa-cart-arrow-down">Ajouter</i>
 							</a>
-						</td>
+						</td> #}
 
 						{% if is_granted('ROLE_ADMIN') %}
 							<td>
 								<ul class="list d-flex justify-content-between">
 									<div>
-										<a class="text-decoration-none" href="{{ path('edit_article', { id : article.id }) }}" title="Editer cetter article">Editer
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
-												<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-												<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-											</svg>
+										<a class="text-decoration-none" href="{{ path('edit_article', { id : article.id }) }}" title="Editer cet article">
+											<button class="btn btn-sm btn-outline-success">
+												<i class="fa-solid fa-pencil"></i>
+											</button>
 										</a>
 									</div>
 									<div>
-										<a class="text-decoration-none" href="">Supprimer</a>
-										<form action="{{ path('delete_article', { id: article.id } ) }}" method="post" class="d-inline">
+										<a class="text-decoration-none" href=""></a>
+										<form action="{{ path('delete_article', { id: article.id } ) }}" method="post" class="d-inline" title="Supprimer cet article">
 											<input type="hidden" name="token" value="{{ csrf_token('delete-article-'~ article.id) }}">
 											<button class="btn btn-sm btn-outline-danger">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
-													<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-													<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-												</svg>
-											</button>
+												<i class="fa-solid fa-trash-can"></i>
+											</button>											
 										</form>
 									</div>
 								</ul>

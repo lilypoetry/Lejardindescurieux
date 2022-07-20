@@ -7,12 +7,29 @@
 {% block title %}Résultat de la recherche "{{ query }}"
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/grid2.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+{% endblock %}
 
 {# Contenu de la page #}
 {% block body %}
 
-	<div
-		class="container-fluid">
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+	
+	<div class="container">
 
 		{# Titre h1 #}
 		<div class="row">
@@ -20,9 +37,7 @@
 		</div>
 
 		<div class="row">
-
 			<div class="col-12 col-md-8 mx-auto">
-
 				<div
 					class="row">
 					{# Affichage du nombre total de publications (attribut apporté par knp_paginator) #}
@@ -30,95 +45,53 @@
 						{{ articles.getTotalItemCount }}</p>
 				</div>
 
-				{# <div class="py-1">
-					<form method="GET"> #}
-						{# ?numbers=3 #}
-						{# <label for="numbers">Nombre de article par page</label>
-                        <input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
-						<select name="numbers" id="numbers" onchange="this.form.submit();">
-							<option value="5">Choisissez une option</option>
-							<option value="5">5 par page</option>
-							<option value="3">3 par page</option>
-							<option value="1">1 par page</option>
-						</select>
-					</form>
-				</div> #}
-
 				{# S'il y a des articles, on affiche le menu de pagination de knp_paginator #}
 				{% if articles is not empty %}
+					<div
+						class="grid pb-5">
+						{# Boucle pour parcourir tous les articles à afficher #}
+						{% for article in articles %}
+							<div class="card">
+								<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
+									<div class="imgBx">
+										<img src="imgs/covers/{{ article.cover }}" alt="" width="">
+										<div class="card-content">
+											<h2 class="card-header">{{ article.title }}</h2>
+											<div class="info">
+												<h3 class="price">Prix :
+													{{ article.price }}
+													€</h3>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						{% endfor %}
+					</div>
+				{% else %}
 
-					{# <div class="row">
-						<div class="col-12 my-3 text-center color-title">
+					<div class="row">
+						<p class="col-12 text-center alert alert-warning">Il n'y a aucun résultat.</p>
+					</div>
+
+				{% endif %}
+
+				{# S'il y a des articles, on affiche le menu de pagination #}
+				{% if articles is not empty %}
+
+					<div class="row w-100">
+						<div class="col-12 my-3 text-center text-color">
 							<div class="d-inline-block">
 								{{ knp_pagination_render(articles) }}
 							</div>
 						</div>
-					</div> #}
+					</div>
 
-					<div class="row h-100">
-						<div
-							class="col-12 my-auto h-100 d-flex align-content-center justify-content-center flex-wrap">
+				{% endif %}
 
-							{# Boucle pour parcourir tous les articles à afficher #}
-							{% for article in articles %}
-
-								<div class="card card-gallery col-sm-6 col-3-md col-xl-2  p-0 mt-5 mx-3">
-
-									<a
-										href="{{ path('app_article', { 'id': article.id }) }}" class=" mx-auto ">
-										{# <a href="{{ path('app_article', {'id': article.id, 'slug': article.slug}) }}" class=" mx-auto "> #}
-										<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('vignette') }}" class=" h-100 w-auto windows-article position-heart" alt="{{ article.title }}">
-									</a>
-
-									{# si l'id du favoris correspond à l'id de l'utilisateur #}
-								{# {% if app.user and article.favorites.contains(app.user) %} #}
-
-									{# On ajout un coeur plein  #}
-									{# <a class="position-heart-abs " href="{{ path('remove_articles_favorites', {'id': article.id }) }}"><i class="fas fa-heart fs-3 text-red"></i></a>
-									
-									                                {% else %} #}
-									{# On ajoute un coeur vide #}
-									{# <a class="position-heart-abs " href="{{ path('add_articles_favorites', {'id': article.id}) }}"><i class="far fa-heart fs-3 text-red"></i></a>
-									                                {% endif %} #}
-
-								</div>
-
-								{# <h5 class="card-title text-center mt-4"><a href="{{ path('articles_view', {'id': article.id, 'slug': article.slug}) }}" class="d-block text-center">{{ article.title }}</a></h5>#}
-							{# <p class="card-text text-center">Catégorie :#}
-								{# {% for category in article.categories %}#}
-								{# {{ category.name }}#}
-								{# {% endfor %}</p>#}
-								{# le filtre u.truncate permet de couper la description en ajoutant en premier paramètre le nombre de caractère auquels ont souhaite couper + une chaîne de texte indiquant que le texte n'est pas fini  #}
-								{# <p class="card-text text-center">{{ article.content|striptags|u.truncate(20, '...') }} </p>#}
-
-								{# <a href="{{ path('articles_view', {'id': article.id, 'slug': article.slug}) }}" class="btn btn  color-button btn-small d-block mx-auto d-block position-absolute">Voir l'article</a>#}
-							{% endfor %}
-						</div>
-					{% else %}
-
-						<div class="row">
-							<p class="col-12 text-center alert alert-warning">Il n'y a aucun résultat.</p>
-						</div>
-
-					{% endif %}
-
-					{# S'il y a des articles, on affiche le menu de pagination #}
-					{% if articles is not empty %}
-
-						<div class="row w-100">
-							<div class="col-12 my-3 text-center text-color">
-								<div class="d-inline-block">
-									{{ knp_pagination_render(articles) }}
-								</div>
-							</div>
-						</div>
-
-					{% endif %}
-
-				</div>
 			</div>
-
 		</div>
+	</div>
 
 
-	{% endblock %}
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	<script src="{{ asset('js/changeRole.js') }}" defer></script>
+
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="container py-4">
+
+		<section class="secondSec" id="secondSec">
+			{% if app.request.method == 'GET' %}
+				{% if users | length == 0 %}
+					<h4>Aucun résultat pour votre recherche.</h4>
+				{% else %}
+					<div id="users">
+						<div class="pb-3">
+							<form class="d-flex searchBar" role="search" action="{{ path('user_account') }}">
+								<input class="form-control me-2 search" id="recherche" name="query" type="Rechercher" placeholder="Rechercher utilisateur" aria-label="Rechercher">
+							</form>
+						</div>
+					</div>
+
+					<div class="py-3">
+						<form
+							method="GET">
+							{# ?numbers=3 #}
+							<label for="numbers">Nombre d'article par page</label>
+							<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+							<select name="numbers" id="numbers" onchange="this.form.submit();">
+								<option value="5">Choisissez une option</option>
+								<option value="5">5 par page</option>
+								<option value="3">3 par page</option>
+								<option value="1">1 par page</option>
+							</select>
+						</form>
+					</div>
+					<table class="tableUsers table">
+						<thead>
+							<tr>
+								<th scope="col" class="td">Nom</th>
+								<th scope="col">Adresse</th>
+								<th scope="col">Téléphone</th>
+								<th scope="col">Email</th>
+								<th scope="col" class="td">Role</th>
+								<th scope="col" class="text-center">Edit Roles</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for user in users %}
+								<tr>
+									<td class="td">
+										<p>{{user.userIdentifier}}</p>
+									</td>
+									<td>
+										<p>{{user.addresse}}
+											{{ user.city }}
+											{{ user.zipcode }}</p>
+									</td>
+									<td>
+										<p>{{ user.phone }}</p>
+									</td>
+									<td>
+										{% if user.roles[0] == "ROLE_ADMIN" %}
+											<p class="admin" id="rolesAdmin_{{ user.id }}">{{user.email}}</p>
+										{% elseif user.roles[0] == "ROLE_USER" %}
+											<p class="userColor" id="rolesAdmin_{{ user.id }}">{{user.email}}</p>
+										{% else %}
+											<p class="resellerColor" id="rolesAdmin_{{ user.id }}">{{user.email}}</p>
+										{% endif %}
+									</td>
+
+									<td id="roles_{{ user.id }}" class="td">
+										{% if user.roles[0] == "ROLE_ADMIN" %}
+											{{ "ADMIN" }}
+										{% elseif user.roles[0] == "ROLE_USER" %}
+											{{ "USER" }}
+										{% else %}
+											{{ "RESELLER" }}
+										{% endif %}
+									</td>
+
+									<td class="adminChange ">
+										<ul class="list d-flex justify-content-between">
+											<div>
+												<a data-id="{{ user.id }}" data-role="ROLE_ADMIN" class="btn btn-outline-success btn-sm role">Admin</a>
+											</div>
+
+											<div>
+												<a data-id="{{ user.id }}" data-role="ROLE_USER" class="btn btn-outline-success btn-sm role" id="rolesUser_{{ user.id }}">User</a>
+											</div>
+
+											<div>
+												<a data-id="{{ user.id }}" data-role="ROLE_RESELLER" class="btn btn-outline-success btn-sm role" id="rolesReseller_{{ user.id }}">Reseller</a>
+											</div>
+										</ul>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					{% if app.request.query.get('query') %}
+						<div class="returnDiv">
+							<a href="{{ path('user_account') }}" class="btn btn-secondary btn-sm"> Retour
+							</a>
+						</div>
+					{% endif %}
+
+					{# <div class="paginatUser"> #}
+					{{ knp_pagination_render(users) }}
+				{% endif %}
+			{% endif %}
+		</section>
+	</div>
+{% endblock %}

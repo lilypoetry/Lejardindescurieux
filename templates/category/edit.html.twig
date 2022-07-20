@@ -1,27 +1,44 @@
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Modifier catégorie
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/form.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
-	<div class="container">
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-		<div class="d-flex align-items-center justify-content-between pb-5">
-			<div>
-				<h1 class="display-5 m-0">Modifier catégorie</h1>
-			</div>
-			<a href="{{ path('app_category') }}" title="Retour à la liste" class="btn btn-outline-secondary">
+	<div class="example-wrapper formulaire py-4">
+
+		<div class="d-flex align-items-center justify-content-between">
+
+			<h1 class="d-flex align-items-center justify-content-between">Modifier catégorie</h1>
+
+			<a href="{{ path('app_category') }}" title="Retour à la liste" class="btn btn-secondary btn-sm">
 				Retour à la liste
 			</a>
 		</div>
 
-		<div class="w-50 mx-auto">
-			{{ form(form) }}
-			</div>
-
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn btn-secondary btn-sm">{{ button_label|default('Register') }}</button>
+		{{ form_end(form) }}
 	</div>
-    
-	{% endblock %}
 
+	{% endblock %}

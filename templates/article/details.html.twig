@@ -6,6 +6,7 @@
 {% block style %}
 	{{ parent() }}
 	<link href="{{ asset('css/image.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -23,8 +24,8 @@
 		}
 	</style>
 
-	<div class="example-wrapper">
-		<div class="container">
+	<div class="example-wrapper py-4">
+		<div class="container py-5">
 			<div class="row">
 				<div class="column col-6 align-items-center justify-content-between py-5">
 					{% if vich_uploader_asset(article, 'coverFile') %}

@@ -36,7 +36,7 @@ class AdminController extends AbstractController
         $articles = $paginatorInterface->paginate(
             $results,
             $request->query->getInt('page', 1),
-            5
+            $request->query->getInt('numbers', 5),
         );
 
         return $this->render('admin/index.html.twig', [
@@ -52,7 +52,6 @@ class AdminController extends AbstractController
             $categoryRepository->findAll(),
             $request->query->getInt('page', 1),
             5
-
         );
 
         return $this->render('admin/category.html.twig', [
@@ -169,7 +168,7 @@ class AdminController extends AbstractController
     }
 
     // Route pour editer un categorie
-    #[Route('/category/edit/{id}', name: 'app_admin_category_edit', requirements: ['id' => '\d+'])]
+    #[Route('/admin/category/edit/{id}', name: 'app_admin_category_edit', requirements: ['id' => '\d+'])]
     public function edit($id = null, Category $category, Request $request, CategoryRepository $categoryRepository): Response
     {
         $form = $this->createForm(CategoryFormType::class, $category);
@@ -184,7 +183,7 @@ class AdminController extends AbstractController
                 $this->addFlash('success', 'La catégorie à bien été modifier');
 
                 // Redirection vers une autre page
-                return $this->redirectToRoute('app_admin_category');
+                return $this->redirectToRoute('admin_category_edit');
             }
         }
 

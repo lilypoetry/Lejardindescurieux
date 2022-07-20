@@ -3,9 +3,29 @@
 {% block title %}Log in!
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/login.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/form.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
-	<div class="container w-50">
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper formulaire">
 		<form method="post">
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -13,11 +33,7 @@
 
 			{% if app.user %}
 				<div class="mb-3">
-
-
 					Vous êtes connecté sous :
-
-
 					{{ app.user.userIdentifier }},
 					<a href="{{ path('app_logout') }}">Se déconnecter</a>
 				</div>
@@ -54,15 +70,9 @@
 				</label>
 			</div>
 
-
-
-			<button class="btn btn-lg btn-primary" type="submit">
-
-
+			<button class="btn btn-sm btn-secondary" type="submit">
 				Se connecter
 			</button>
 		</form>
 	</div>
-
-
 {% endblock %}

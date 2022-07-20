@@ -26,7 +26,7 @@ class HomeController extends AbstractController
         $articles = $paginatorInterface->paginate(
             $articleRepository->findAll(),
             $request->query->getInt('page', 1),
-            6
+            $request->query->getInt('numbers', 6),
         );
 
         if ($id) {
@@ -48,14 +48,6 @@ class HomeController extends AbstractController
             'categories' => $category,
             'articles' => $articles,
         ]);
-        //return $this->render('home/index.html.twig');
-
-        /* $categories = $categoryRepository->findAll();
-
-        return $this->render('home/index.html.twig', [
-            'articles' => $articles,
-            'categories' => $categories,
-        ]); */
     }
 
     /**

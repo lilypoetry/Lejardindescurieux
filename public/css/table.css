@@ -1,0 +1,43 @@
+/* Table responsive */
+:root {
+    --green: #12492f;
+    --sauvage: #689d71;
+    --apple: #008000;
+    --cream: #ffca7a;
+    --yellow: #f0932b;
+    --brown: #b36700;
+    --white: #ffffff;
+    --aliceblue: aliceblue;
+    --black: black;
+    --metal: #473E46;
+    --mbrown: #6A3805;
+    --silver: #b4b4b4;
+  }
+
+.table thead{
+    background-color: var(--apple);
+    color: var(--white);
+}
+
+
+@media (max-width: 700px) {
+    .table thead {
+        display: none;
+    }
+
+    .table tr {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .table td {
+        display: block;
+        text-align: right;
+    }
+
+    .table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+}
