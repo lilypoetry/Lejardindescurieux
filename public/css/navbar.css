@@ -2,18 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 :root {
-  --green: #12492f;
+  --blue: #124559;
+  --black: black;
+  --metal: #464E2E;
+  --mbrown: #87805E;
+  --silver: #b4b4b4;
+  --white: #ffffff;
   --sauvage: #689d71;
   --apple: #008000;
   --cream: #ffca7a;
   --yellow: #f0932b;
   --brown: #A27B5C;
-  --white: #ffffff;
   --aliceblue: aliceblue;
-  --black: black;
-  --metal: #464E2E;
-  --mbrown: #87805E;
-  --silver: #b4b4b4;
 }
 
 body {
@@ -33,12 +33,15 @@ body {
 
 body .navbar {
   overflow: hidden;
-  position: fixed; /* Set the navbar to fixed position */
-  top: 0; /*Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+  position: fixed;
+  /* Set the navbar to fixed position */
+  top: 0;
+  /*Position the navbar at the top of the page */
+  width: 100%;
+  /* Full width */
   z-index: 1;
   box-sizing: border-box;
-  box-shadow: 0 10px 25px rgba(4, 122, 36, 0.945);
+  box-shadow: 0 10px 25px rgba(128, 130, 134, 0.945);
 }
 
 /* Links inside the navbar */
@@ -53,10 +56,10 @@ body .navbar {
 
 /* Background de la navbar */
 body .bg {
-  background: var(--metal);
+  background: var(--blue);
 }
 
-.logo { 
+.logo {
   font-family: 'Edu VIC WA NT Beginner', cursive;
   color: var(--cream) !important;
   font-size: 1.7rem;

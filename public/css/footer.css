@@ -2,8 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 :root {
-    --green: #12492f;
-    --sauvage: #689d71;
+    --blue: #124559;
     --apple: #008000;
     --cream: #ffca7a;
     --yellow: #DCD7C9;
@@ -26,7 +25,7 @@ body {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: var(--metal);
+    background-color: var(--blue);
     color: white;
     text-align: center;
     z-index: 20;

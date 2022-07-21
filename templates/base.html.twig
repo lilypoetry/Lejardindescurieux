@@ -42,7 +42,6 @@
 			<div class="container-fluid">
 				<a class="navbar-brand text logo" href="{{ path('app_home') }}">
 					Lejardindescurieux
-					{# <img src="../imgs/covers/logo2.png" alt="" class="border-rounded"> #}
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -104,11 +103,11 @@
 								</a>
 							</li>
 
-							{# {% if is_granted('ROLE_ADMIN') %}
-																																																																							<li class="nav-item">
-																																																																								<a class="nav-link text" href="{{ path('app_admin') }}">Admin</a>
-																																																																							</li>
-																																																																						{% endif %} #}
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item">
+									<a class="nav-link text" href="{{ path('app_admin') }}">Admin</a>
+								</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
@@ -174,6 +173,5 @@
 			</div>
 		</div>
 		{% block footer %}{% endblock %}
-		</footer>
 	</body>
-</html>
+</html></footer></body></html>

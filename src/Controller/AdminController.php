@@ -36,7 +36,7 @@ class AdminController extends AbstractController
         $articles = $paginatorInterface->paginate(
             $results,
             $request->query->getInt('page', 1),
-            $request->query->getInt('numbers', 5),
+            $request->query->getInt('numbers', 100),
         );
 
         return $this->render('admin/index.html.twig', [
@@ -44,80 +44,10 @@ class AdminController extends AbstractController
         ]);
     }
 
-    // Route pour afficher les catégories
-    #[Route('/admin/categorie', name: 'app_admin_category')]
-    public function categorie(CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginatorInterface): Response
-    {
-        $categories = $paginatorInterface->paginate(
-            $categoryRepository->findAll(),
-            $request->query->getInt('page', 1),
-            5
-        );
-
-        return $this->render('admin/category.html.twig', [
-            'categories' => $categories
-        ]);
-    }
-
-    // Route pour afficher toutes les utilisateur
-    #[Route('/admin/users', name: 'app_admin_users')]
-    public function users(UserRepository $userRepository, Request $request, PaginatorInterface $paginatorInterface): Response
-    {
-        $results = $userRepository->findAll();
-
-        $query = $request->query->get('query');
-        if ($query) {
-            $results = $userRepository->findUserByName($query);
-        }
-
-        $users = $paginatorInterface->paginate(
-            $results,
-            $request->query->getInt('page', 1),
-            9
-        );
-
-        return $this->render('admin/users.html.twig', [
-            'users' => $users
-        ]);
-    }
-
-    // Route pour supprimer un article
-    #[Route('/admin/article/delete/{id}', name: 'app_admin_article_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
-    public function deleteArticle(Article $article, Request $request, ArticleRepository $articleRepository): RedirectResponse
-    {
-        $tokenCsrf = $request->request->get('token');
-        if ($this->isCsrfTokenValid('delete-article-' . $article->getId(), $tokenCsrf)) {
-            $articleRepository->remove($article, true);
-            $this->addFlash('success', 'L\'Article à bien été supprimée');
-            $success = true;
-        }
-
-        return $this->redirectToRoute('app_admin', [
-            'success' => $success
-        ]);
-    }
-
-    // Route pour supprimer un catégorie
-    #[Route('/admin/categories/delete/{id}', name: 'app_admin_category_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
-    public function deleteCate(Category $category, Request $request, CategoryRepository $categoryRepository): RedirectResponse
-    {
-
-        $tokenCsrf = $request->request->get('token');
-
-        if ($this->isCsrfTokenValid('delete-category-' . $category->getId(), $tokenCsrf)) {
-            $categoryRepository->remove($category, true);
-            $this->addFlash('success', 'La catégorie à bien été supprimée');
-            $success = true;
-        }
-
-        return $this->redirectToRoute('app_admin', [
-            'success' => $success
-        ]);
-    }
-
     // Route pour ajouter un article
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/article/new', name: 'admin_new_article')]
-    public function newArticle(Article $article, Request $request, ArticleRepository $articleRepository): Response
+    public function newArticle(Request $request, ArticleRepository $articleRepository): Response
     {
         $article = new Article();
 
@@ -131,17 +61,18 @@ class AdminController extends AbstractController
             $article->setUser($this->getUser());
             $articleRepository->add($article, true);
             $this->addFlash('success', 'L\'article a bien été enregistrée');
-            
+
             // Redirection vers une autre page
             return $this->redirectToRoute('app_admin');
         }
-        
+
         return $this->render('admin/newArticle.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     // Route pour editer un article
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/article/edit/{id}', name: 'admin_edit_article', requirements: ['id' => '\d+'])]
     public function editArticle($id = null, Article $article, Request $request, ArticleRepository $articleRepository): Response
     {
@@ -155,7 +86,7 @@ class AdminController extends AbstractController
         } else {
             if ($form->isSubmitted() && $form->isValid()) {
                 $articleRepository->add($article, true);
-                $this->addFlash('success', 'L\'Article à bien été modifier');
+                $this->addFlash('success', 'L\'article à bien été modifier');
 
                 // Redirection vers une autre page
                 return $this->redirectToRoute('app_admin');
@@ -167,33 +98,124 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Route pour supprimer un article
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/article/delete/{id}', name: 'admin_delete_article', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function deleteArticle(Article $article, Request $request, ArticleRepository $articleRepository): RedirectResponse
+    {
+        $tokenCsrf = $request->request->get('token');
+        if ($this->isCsrfTokenValid('delete-article-' . $article->getId(), $tokenCsrf)) {
+            $articleRepository->remove($article, true);
+            $this->addFlash('success', 'L\'article à bien été supprimée');
+            $success = true;
+        }
+
+        return $this->redirectToRoute('app_admin', [
+            'success' => $success
+        ]);
+    }
+
+    // Route pour afficher les catégories
+    // #[Route('/admin/categorie', name: 'app_admin_category')]
+    #[Route('/admin/category', name: 'admin_category')]
+    public function categorie(CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginatorInterface): Response
+    {
+        $categories = $paginatorInterface->paginate(
+            $categoryRepository->findAll(),
+            $request->query->getInt('page', 1),
+            $request->query->getInt('numbers', 100)
+        );
+
+        return $this->render('admin/category.html.twig', [
+            'categories' => $categories
+        ]);
+    }
+
+    // Route pour ajouter une nouvelle catégorie
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/category/new', name: 'admin_new_category')]
+    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    {
+        $category = new Category();
+
+        $form = $this->createForm(CategoryFormType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryRepository->add($category, true);
+            $this->addFlash('success', 'La catégorie a bien été enregistrée');
+
+            // Redirection vers une autre page
+            return $this->redirectToRoute('admin_category');
+        }
+        return $this->render('admin/newCategory.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     // Route pour editer un categorie
-    #[Route('/admin/category/edit/{id}', name: 'app_admin_category_edit', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/category/edit/{id}', name: 'admin_edit_category', requirements: ['id' => '\d+'])]
     public function edit($id = null, Category $category, Request $request, CategoryRepository $categoryRepository): Response
     {
         $form = $this->createForm(CategoryFormType::class, $category);
         $form->handleRequest($request);
-        $idcat = $categoryRepository->find($id);
-        if (!$idcat) {
-            $this->addFlash('error', " L'id $id n'existe pas");
-            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
-        } else {
-            if ($form->isSubmitted() && $form->isValid()) {
-                $categoryRepository->add($category, true);
-                $this->addFlash('success', 'La catégorie à bien été modifier');
 
-                // Redirection vers une autre page
-                return $this->redirectToRoute('admin_category_edit');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryRepository->add($category, true);
+            $this->addFlash('success', 'La catégorie à bien été modifier');
+
+            // Redirection vers une autre page
+            return $this->redirectToRoute('admin_category');
         }
-
-
         return $this->render('admin/editCategories.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
+    // Route pour supprimer un catégorie
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/categories/delete/{id}', name: 'admin_delete_category', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function deleteCate(Category $category, Request $request, CategoryRepository $categoryRepository): RedirectResponse
+    {
+
+        $tokenCsrf = $request->request->get('token');
+
+        if ($this->isCsrfTokenValid('delete-category-' . $category->getId(), $tokenCsrf)) {
+            $categoryRepository->remove($category, true);
+            $this->addFlash('success', 'La catégorie à bien été supprimée');
+            $success = true;
+        }
+
+        return $this->redirectToRoute('admin_category', [
+            'success' => $success
+        ]);
+    }
+
+    // Route pour afficher toutes les utilisateur
+    #[Route('/admin/users', name: 'admin_users')]
+    public function users(UserRepository $userRepository, Request $request, PaginatorInterface $paginatorInterface): Response
+    {
+        $results = $userRepository->findAll();
+
+        $query = $request->query->get('query');
+        if ($query) {
+            $results = $userRepository->findUserByName($query);
+        }
+
+        $users = $paginatorInterface->paginate(
+            $results,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('numbers', 100)
+        );
+
+        return $this->render('admin/users.html.twig', [
+            'users' => $users
+        ]);
+    }
+
     // Route pour editer le role utilisateur
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/users/edit/{id}/{role}', name: 'app_admin_user_role', methods: ['POST'])]
     public function roles(User $user, string $role, UserRepository $userRepository,): JsonResponse
     {
@@ -203,4 +225,5 @@ class AdminController extends AbstractController
 
         return $this->json(['role' => $role]);
     }
+    
 }

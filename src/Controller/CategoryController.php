@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Form\CategoryFormType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -102,5 +103,28 @@ class CategoryController extends AbstractController
        }
 
        return $this->redirectToRoute('app_category');
+    }
+
+    /** 
+     * Route pour afficher les articles du même category
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/category/list', name: 'list_category')]
+    public function category(Request $request, CategoryRepository $categoryRepository, ArticleRepository $articleRepository, PaginatorInterface $paginatorInterface): Response
+    {
+        $articles = $articleRepository->findArticleByCategoryId();
+        
+        // $categories = $categoryRepository->findAll();
+        $id = $request->query->get("id");
+        $categories = $categoryRepository->findBy(['article' => $id]);
+
+        
+
+        
+
+        return $this->render('category/list.html.twig', [
+            'categories' => $categories,
+            'articles' => $articles
+        ]);
     }
 }

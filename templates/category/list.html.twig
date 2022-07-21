@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/sort.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div
+		class="example-wrapper py-4">
+
+		<div class="d-flex align-items-center justify-content-between">
+			<h1 class="d-flex align-items-center justify-content-between">Liste des articles par catégorie</h1>
+        </div>
+
+		<div class="py-3">
+			<form method="GET">
+				<label for="numbers">Nombre d'articles par page</label>
+				<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+				<select name="numbers" id="numbers" onchange="this.form.submit();">
+					<option value="5">Choisissez une option</option>
+					<option value="5">5 par page</option>
+					<option value="3">3 par page</option>
+					<option value="1">1 par page</option>
+				</select>
+			</form>
+		</div>
+
+		<table class="table table-hover id="myTable2"">
+			<thead>
+				<tr>
+					<th scope="col" onclick="sortTable(0)">Photo</th>
+                    <th scope="col" onclick="sortTable(0)">Article</th>
+                    <th scope="col" onclick="sortTable(0)">Quantité</th>
+                    <th scope="col" onclick="sortTable(0)">Prix</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for category in categories %}
+					<tr>
+						<td
+							class="py-3">
+							<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
+								<img src="imgs/covers/{{ article.category.cover }}" alt="" width="70px">
+							</a>
+						</td>
+						<td class="py-3">{{ article.category.title }}</td>
+						<td>{{ article.category.stock }}</td>
+						<td>{{ article.category.price }} €</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{# Affiche la numérotations des pages #}
+		{{ knp_pagination_render(categories) }}
+	</div>
+{% endblock %}

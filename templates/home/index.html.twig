@@ -4,15 +4,16 @@
 	{{ parent() }}
 	<link href="{{ asset('css/grid2.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
-	{# <link href="{{ asset('css/background.css') }}" rel="stylesheet"> #}
+	<link href="{{ asset('css/word.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
-	<script type="text/javascript">
+	{{ parent() }}	
+	{# <script type="text/javascript">
 		$(document).ready(function () {
-		$('.carousel').carousel({interval: 2000})
-		});
-	</script>
+$('.carousel').carousel({interval: 2000})
+});
+	</script> #}
 {% endblock %}
 
 {% block title %}Bienvenue au Jardin des Curieux !
@@ -32,23 +33,10 @@
 		}
 	</style>
 	{# Page d'accueil #}
-	<div
-		class="example-wrapper container">
-
-		<!-- Carousel -->
-		{# <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img class="d-block w-100" src="../imgs/slide/03.jpg" alt="First slide">
-				</div>
-				<div class="carousel-item">
-					<img class="d-block w-100" src="../imgs/slide/04.jpg" alt="Second slide">
-				</div>
-				<div class="carousel-item">
-					<img class="d-block w-100" src="../imgs/slide/05.jpg" alt="Third slide">
-				</div>
-			</div>
-		</div> #}
+	<div class="example-wrapper container">
+		{% if app.user is null %}
+			<h1 class="word pt-3">Contactez-nous pour devenir notre revendeur !</h1>
+		{% endif %}
 
 		<div class="py-4">
 			{% if is_granted('ROLE_USER') %}
@@ -108,8 +96,8 @@
 								class="imgBx">
 
 								{# {% if vich_uploader_asset(article,'coverFile') %}
-																																																																									<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit">
-																																																																								{% endif %} #}
+																																																																																	<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit">
+																																																																																{% endif %} #}
 								<img src="imgs/covers/{{ article.cover }}" alt="" width="245px">
 								<div class="card-content">
 									<h2 class="card-header">{{ article.title }}</h2>

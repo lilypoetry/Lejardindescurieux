@@ -13,7 +13,7 @@
 
 	{{ parent() }}
 	<script src="{{ asset('js/changeRole.js') }}" defer></script>
-
+	<script src="{{ asset('js/sort.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
@@ -60,15 +60,19 @@
 							</select>
 						</form>
 					</div>
-					<table class="tableUsers table">
+					<table class="tableUsers table table-hover" id="myTable2">
+						<!--When a header is clicked, run the sortTable function, with a parameter,
+						0 for sorting by names, 1 for sorting by country: -->
 						<thead>
 							<tr>
-								<th scope="col" class="td">Nom</th>
+								<th scope="col" class="td" onclick="sortTable(0)">Nom 
+									<i class="fa-solid fa-angles-down"></i></th>
 								<th scope="col">Adresse</th>
 								<th scope="col">Téléphone</th>
 								<th scope="col">Email</th>
-								<th scope="col" class="td">Role</th>
-								<th scope="col" class="text-center">Edit Roles</th>
+								<th scope="col" class="td" onclick="sortTable(1)">Role 
+									<i class="fa-solid fa-angles-down"></i></th>
+								<th scope="col" class="text-center" onclick="sortTable(0)">Edit Roles</th>
 							</tr>
 						</thead>
 						<tbody>

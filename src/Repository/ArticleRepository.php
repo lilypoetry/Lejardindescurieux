@@ -47,7 +47,9 @@ class ArticleRepository extends ServiceEntityRepository
             $qb->expr()->andX(
                 $qb->expr()->orX(
                     $qb->expr()->like('p.title', ':query'),
-                    $qb->expr()->like('p.description', ':query'),          
+                    $qb->expr()->like('p.description', ':query'),
+                    $qb->expr()->like('p.price', ':query'),   
+                    $qb->expr()->like('p.updated_at', ':query'),       
                 ),
                 $qb->expr()->isNotNull('p.updated_at')
             ),

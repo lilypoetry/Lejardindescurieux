@@ -1,7 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_base.html.twig' %}
 
 {% block title %}Nouvelle Categorie
 {% endblock %}
+
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
@@ -31,9 +32,9 @@
 				Retour à la liste
 			</a>
 		</div>
-		<div>
-			{{ form(form) }}
-			</div>
-		</div>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn btn-secondary btn-sm">{{ button_label|default('Enregistrer') }}</button>
+		{{ form_end(form) }}
 	</div>
 	{% endblock %}

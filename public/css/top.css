@@ -3,7 +3,7 @@
 body {
     margin-top: 100px; /* Add a top margin to avoid content overlay */
     font-family: 'Edu VIC WA NT Beginner', cursive;
-    font-family: 'Inter', sans-serif;
+    /* font-family: 'Inter', sans-serif; */
     font-family: 'Poppins', sans-serif;
 }
 

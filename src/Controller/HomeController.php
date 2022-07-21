@@ -67,7 +67,7 @@ class HomeController extends AbstractController
             $articles = $paginatorInterface->paginate(
                 $articleRepository->findArticlesByName($query),
                 $request->query->getInt('page', 1),
-                5
+                6
             );
 
             $categories = $categoryRepository->findAll($query);
