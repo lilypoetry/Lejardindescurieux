@@ -60,9 +60,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class, orphanRemoval: true)]
     private $article;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Market::class, orphanRemoval: true)]
+    private $markets;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
+        $this->markets = new ArrayCollection();
     }    
 
 
@@ -257,5 +261,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Market>
+     */
+    public function getMarkets(): Collection
+    {
+        return $this->markets;
+    }
+
+    public function addMarket(Market $market): self
+    {
+        if (!$this->markets->contains($market)) {
+            $this->markets[] = $market;
+            $market->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMarket(Market $market): self
+    {
+        if ($this->markets->removeElement($market)) {
+            // set the owning side to null (unless already changed)
+            if ($market->getUser() === $this) {
+                $market->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    // #[ORM\Column(type: 'string')]
+    // private $fullName;
     
+    // /**
+    //  * Get the value of fullName
+    //  */ 
+    // public function getFullName()
+    // {
+    //     return $this->firstname.$this->lastname;
+    // }
+
+    // /**
+    //  * Set the value of fullName
+    //  *
+    //  * @return  self
+    //  */ 
+    // public function setFullName($fullName)
+    // {
+    //     $this->fullName = $fullName;
+
+    //     // $arr = str_split((string) $fullName);
+    //     // if(is_array($arr) && count($arr) = 1) {
+    //     //     $this->firstname = $arr[0];
+    //     //     $this->lastname = $arr[1];
+            
+    //     // }
+    //     // return false;   
+    //     return $this;
+    // }
 }

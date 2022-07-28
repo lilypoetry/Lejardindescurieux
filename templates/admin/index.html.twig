@@ -1,6 +1,6 @@
 {% extends 'admin_base.html.twig' %}
 
-{% block title %}Article
+{% block title %}Administrateur
 {% endblock %}
 
 {% block stylesheets %}
@@ -17,20 +17,7 @@
 
 {% block body %}
 
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-
-	<div class="example-wrapper py-4">
+	<div class="container py-5">
 		{% if articles is not empty %}
 			<form class="col-lg-12 d-none d-lg-block list-inline-item d-flex" role="search" action="{{ path('app_admin') }}">
 				<input class="form-control me-2" name="query" type="search" placeholder="Rechercher article" aria-label="Search">
@@ -38,9 +25,9 @@
 		{% else %}
 			<div class="row">
 				<p class="col-12 text-center alert alert-warning">Il n'y a aucun résultat pour votre recherche.</p>
-			</div>
+			</div>			
 		{% endif %}
-
+		
 		{# Afficher le message success #}
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success pt-2" role="alert">
@@ -52,7 +39,7 @@
 			<h1 class='d-flex'>Liste des articles</h1>
 			{% if is_granted('ROLE_ADMIN') %}
 				<a href="{{ path('admin_new_article') }}" class="btn button btn-secondary btn-sm text-end">
-					Ajouter une article
+					Ajouter <i class="fa-solid fa-plus"></i>
 				</a>
 			{% endif %}
 		</div>
@@ -78,9 +65,11 @@
 					<th scope="col" onclick="sortTable(0)">Article
 						<i class="fa-solid fa-angles-down"></i>
 					</th>
+					<th scope="col" onclick="sortTable(1)">Catégorie
+						<i class="fa-solid fa-angles-down"></i></th>
 					<th scope="col">Quantité</th>
 					<th scope="col">Prix</th>
-					<th class="text-center" scope="col">Action</th>
+					<th class="text-center" scope="col">Actions</th>
 				</tr>
 			</thead>
 
@@ -90,11 +79,12 @@
 				{% for article in articles %}
 					<tr>
 						<td class="py-3">
-							<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
+							<a class="text-decoration-none" href="{{ path('admin_detail_article', {id: article.id })}}">
 								<img src="imgs/covers/{{ article.cover }}" alt="" width="70px">
 							</a>
 						</td>
 						<td class="py-3">{{ article.title }}</td>
+						<td class="py-3">{{ article.category.name }}</td>
 						<td>{{ article.stock }}</td>
 						<td>{{ article.price }}
 							€</td>
@@ -103,8 +93,8 @@
 								<ul class="list d-flex justify-content-between">
 									<div>
 										<a class="text-decoration-none" href="{{ path('admin_edit_article', { id : article.id }) }}" title="Editer cet article">
-											<button class="btn btn-sm btn-outline-success">
-												<i class="fa-solid fa-pencil"></i>
+											<button class="btn btn-sm btn-success">
+												Editer <i class="fa-solid fa-pencil"></i>
 											</button>
 										</a>
 									</div>
@@ -112,8 +102,8 @@
 										<a class="text-decoration-none" href=""></a>
 										<form action="{{ path('admin_delete_article', { id: article.id } ) }}" method="post" class="d-inline" title="Supprimer cet article">
 											<input type="hidden" name="token" value="{{ csrf_token('delete-article-'~ article.id) }}">
-											<button class="btn btn-sm btn-outline-danger">
-												<i class="fa-solid fa-trash-can"></i>
+											<button class="btn btn-sm btn-danger">
+												Supprimer <i class="fa-solid fa-trash-can"></i>
 											</button>
 										</form>
 									</div>
@@ -128,7 +118,7 @@
 		{% if app.request.query.get('query') %}
 			<div class="returnDiv">
 				<a href="{{ path('app_admin') }}" class="btn btn-secondary btn-sm">
-					Retour
+					Retour <i class="fa-solid fa-left-long"></i>
 				</a>
 			</div>
 		{% endif %}

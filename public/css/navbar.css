@@ -5,21 +5,16 @@
   --blue: #124559;
   --black: black;
   --metal: #464E2E;
-  --mbrown: #87805E;
   --silver: #b4b4b4;
   --white: #ffffff;
-  --sauvage: #689d71;
-  --apple: #008000;
-  --cream: #ffca7a;
+  --brown: #b36700;  
   --yellow: #f0932b;
-  --brown: #A27B5C;
-  --aliceblue: aliceblue;
 }
 
 body {
   margin: 0;
   font-family: 'Edu VIC WA NT Beginner', cursive;
-  font-family: 'Inter', sans-serif;
+  /* font-family: 'Inter', sans-serif; */
   font-family: 'Poppins', sans-serif;
   /* font-weight: 500;  */
   position: relative;
@@ -32,7 +27,7 @@ body {
 }
 
 body .navbar {
-  overflow: hidden;
+  /* overflow: hidden; */
   position: fixed;
   /* Set the navbar to fixed position */
   top: 0;
@@ -40,15 +35,16 @@ body .navbar {
   width: 100%;
   /* Full width */
   z-index: 1;
-  box-sizing: border-box;
-  box-shadow: 0 10px 25px rgba(128, 130, 134, 0.945);
+  /* box-sizing: border-box; */
+  box-shadow: 0 2px 5px rgba(128, 130, 134, 0.945);
+  
 }
 
 /* Links inside the navbar */
 .navbar a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: var(--white);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -61,7 +57,7 @@ body .bg {
 
 .logo {
   font-family: 'Edu VIC WA NT Beginner', cursive;
-  color: var(--cream) !important;
+  color: var(--brown) !important;
   font-size: 1.7rem;
   font-weight: bolder;
 }
@@ -76,27 +72,6 @@ ul li {
   color: white;
 }
 
-.text:hover {
-  color: var(--black);
+.text:hover, .fa-solid:hover {
+  color: yellow;
 }
-
-/* .gradient {
-  background: linear-gradient(to right, var(--black), var(--brown) 0%, var(--yellow) 33%, var(--cream) 66%, var(--sauvage) 100%);
-  height: 10px;
-  animation: rgbAnimation 18s infinite;
-  margin-top: 0;
-}
-@keyframes rgbAnimation {
-  0% {
-      filter: hue-rotate(0deg);
-  }
-  33% {
-      filter: hue-rotate(33deg);
-  }
-  66% {
-      filter: hue-rotate(66deg);
-  }
-  100% {
-      filter: hue-rotate(0deg);
-  }
-} */

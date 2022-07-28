@@ -1,6 +1,6 @@
 {% extends 'admin_base.html.twig' %}
 
-{% block title %}Nouvelle Article
+{% block title %}Modifier market
 {% endblock %}
 
 {% block stylesheets %}
@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<style>
 		.example-wrapper {
 			margin: 1em auto;
@@ -22,19 +23,19 @@
 		}
 	</style>
 
-	<div class="example-wrapper formulaire">
-		
-		<div class=" d-flex align-items-center justify-content-between pb-5 m-0">
-			<h1 class="d-flex align-items-center justify-content-between">Nouvelle article</h1>
-			<a href="{{ path('app_admin') }}" title="Nouvelle article" class="btn btn-secondary btn-sm">
+	<div class="example-wrapper py-4">
+		<div class="d-flex align-items-center justify-content-between">
+			<h1 class="d-flex align-items-center justify-content-between">Modifier l'évenèment</h1>
+			<a href="{{ path('admin_market') }}" title="Retour à la liste" class="btn btn-secondary btn-sm">
 				Retour <i class="fa-solid fa-left-long"></i>
 			</a>
 		</div>
-		
+	</div>
+	<div class="example-wrapper formulaire">		
 		{{ form_start(form) }}
 		{{ form_widget(form) }}
-		<button class="btn btn-secondary btn-sm">{{ button_label|default('Enregistrer') }}</button>
+		<button class="btn btn-secondary btn-sm">{{ button_label|default('Register') }}</button>
 		{{ form_end(form) }}
-
 	</div>
-{% endblock %}
+
+	{% endblock %}

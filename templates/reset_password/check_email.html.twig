@@ -5,6 +5,7 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/colom.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -21,7 +22,7 @@
 		}
 	</style>
 
-    <div class="example-wrapper py-4">
+    <div class="example-wrapper py-4 col">
         <p>
             Si un compte correspondant à votre adresse email existe, un email vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
             Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.

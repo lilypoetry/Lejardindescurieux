@@ -2,121 +2,129 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link href="{{ asset('css/grid2.css') }}" rel="stylesheet">
-	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link
+	href="{{ asset('css/grid2.css') }}" rel="stylesheet">
+	{# <link href="{{ asset('css/top.css') }}" rel="stylesheet"> #}
 	<link href="{{ asset('css/word.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/header.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}	
-	{# <script type="text/javascript">
-		$(document).ready(function () {
-$('.carousel').carousel({interval: 2000})
-});
-	</script> #}
+	{{ parent() }}
 {% endblock %}
 
 {% block title %}Bienvenue au Jardin des Curieux !
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
+	<style>/*.example-wrapper {
 			margin: 1em auto;
 			max-width: 800px;
 			width: 95%;
-			font: 18px / 1.5 sans-serif;
 		}
 		.example-wrapper code {
 			background: #F5F5F5;
 			padding: 2px 6px;
-		}
-	</style>
-	{# Page d'accueil #}
-	<div class="example-wrapper container">
-		{% if app.user is null %}
-			<h1 class="word pt-3">Contactez-nous pour devenir notre revendeur !</h1>
-		{% endif %}
+		}*/</style>
+{# Page d'accueil #}
+<header class="header mt-5">
+	{% if app.user is null %}
+		<h1 class="word pt-3">Contactez-nous pour devenir notre revendeur !</h1>
+	{% else %}
+		<h1 class="word pt-3">Bienvenue
+			{{ app.user.userIdentifier }}
+			!</h1>
+	{% endif %}
+</header>
+<div class="container">
 
-		<div class="py-4">
-			{% if is_granted('ROLE_USER') %}
-				Bienvenue
-				{{ app.user.userIdentifier }}
-				!
-				{% if is_granted('ROLE_ADMIN') %}
-					<p class="fw-lighter">Vous êtes connecté en tant qu'administrateur !</p>
-				{% endif %}
-			{% endif %}
-		</div>
+	<div
+		class="pb-2">
 
-		<div
-			class="pb-2">
+		{# Afficher le message success #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-			{# Afficher le message success #}
-			{% for message in app.flashes('success') %}
-				<div class="alert alert-success" role="alert">
-					{{ message }}
-				</div>
-			{% endfor %}
+		{# {% if app.request.method == 'GET' %} #}
+		<form method="GET" class="pb-2">
+			<select onchange="this.form.submit();" id="id" name="id" class="form-select" aria-label="Default select example">
+				<option selected value="0">Toutes les catégories</option>
+				{% for category in categories %}
 
-			{# {% if app.request.method == 'GET' %} #}
-			<form method="GET" class="pb-2">
-				<select onchange="this.form.submit();" id="id" name="id" class="form-select" aria-label="Default select example">
-					<option selected value="0">Toutes les catégories</option>
-					{% for category in categories %}
+					<option value="{{ category.id }}">{{ category.name }}</option>
 
-						<option value="{{ category.id }}">{{ category.name }}</option>
+				{% endfor %}
+			</select>
+		</form>
+		{# {% endif %} #}
 
-					{% endfor %}
+		{# Pour formulaire d'option affichage nombre d'article par page #}
+		{# ?numbers=3 #}
+			<div class="py-1"> <form method="GET">
+				<label for="numbers">Nombre d'article par page</label>
+				<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+				<select name="numbers" id="numbers" onchange="this.form.submit();">
+					<option value="5">Choisissez une option</option>
+					<option value="6">6 par page</option>
+					<option value="5">5 par page</option>
+					<option value="3">3 par page</option>
+					<option value="1">1 par page</option>
 				</select>
 			</form>
-			{# {% endif %} #}
+		</div>
+		<div class="grid w-100">
+			{% for article in articles %}
+				<div
+					class="card d-block mx-auto">
+					{# <h3 class="card-header">{{ article.category.name }}</h3> #}
+					<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
+						<div>
+							
+							<div class="card-content">
+								<h2 class="card-header">{{ article.title }}</h2>
+								{# <div class="info">
+									<h3 class="price">Prix :
+										{{ article.price }}
+										€</h3>
+								</div> #}
+							</div>
+							<div>
+								<img src="imgs/covers/{{ article.cover }}" alt="{{ article.title }}" class="img-fluid article-img">
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
 
-			{# Pour formulaire d'option affichage nombre d'article par page #}
-			{# ?numbers=3 #}
-				<div class="py-1"> <form method="GET">
-					<label for="numbers">Nombre d'article par page</label>
-					<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
-					<select name="numbers" id="numbers" onchange="this.form.submit();">
-						<option value="5">Choisissez une option</option>
-						<option value="6">6 par page</option>
-						<option value="5">5 par page</option>
-						<option value="3">3 par page</option>
-						<option value="1">1 par page</option>
-					</select>
-				</form>
-			</div>
-
-			<div class="grid pb-2">
-				{% for article in articles %}
-
-					<div class="card">
-						<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
-							<div
-								class="imgBx">
-
-								{# {% if vich_uploader_asset(article,'coverFile') %}
-																																																																																	<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit">
-																																																																																{% endif %} #}
-								<img src="imgs/covers/{{ article.cover }}" alt="" width="245px">
-								<div class="card-content">
-									<h2 class="card-header">{{ article.title }}</h2>
-									<div class="info">
-										<h3 class="price">Prix :
-											{{ article.price }}
-											€</h3>
-										{# <h3 class="category">{{ article.category.name }}</h3> #}
-									</div>
+		{# <div class="grid">
+			{% for article in articles %}
+				<div class="card">
+					<h3 class="card-header">{{ article.category.name }}</h3>
+					<a class="text-decoration-none" href="{{ path('details_article', {id: article.id })}}">
+						<div>
+							<div>
+								<img src="imgs/covers/{{ article.cover }}" alt="{{ article.title }}" class="img-fluid article-img">
+							</div>
+							<div class="card-content">
+								<h2 class="card-header">{{ article.title }}</h2>
+								<div class="info">
+									<h3 class="price">Prix :
+										{{ article.price }}
+										€</h3>
 								</div>
 							</div>
-						</a>
-					</div>
-				{% endfor %}
-			</div>
-
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div> #}
+		<div>
 			{{ knp_pagination_render(articles) }}
-
 		</div>
 	</div>
-
+</div>
 {% endblock %}

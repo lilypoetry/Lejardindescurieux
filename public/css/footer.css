@@ -3,21 +3,14 @@
 
 :root {
     --blue: #124559;
-    --apple: #008000;
-    --cream: #ffca7a;
-    --yellow: #DCD7C9;
-    --brown: #CA955C;
     --white: #ffffff;
-    --aliceblue: aliceblue;
     --black: black;
     --metal: #473E46;
-    --mbrown: #464E2E;
     --silver: #b4b4b4;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    /* font-family: 'Arima', cursive; */
 }
 
 .footerBox {
@@ -34,6 +27,11 @@ body {
 hr .line {
     width:25%;
     margin: auto;
+}
+
+footer .adresse {
+    line-height: 0.3px;
+    font-size: smaller;
 }
   /* .footerBox {
     background-color: var(--apple);

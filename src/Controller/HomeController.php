@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\MarketRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,31 +23,57 @@ class HomeController extends AbstractController
         $id = $request->query->get("id");
         // $articles = $articleRepository->findBy(['category' => $id]);
 
-        // Pour afficher toutes kes articles un page d'accueil
+        // Pour afficher toutes les articles un page d'accueil
         $articles = $paginatorInterface->paginate(
             $articleRepository->findAll(),
             $request->query->getInt('page', 1),
             $request->query->getInt('numbers', 6),
         );
 
-        if ($id) {
-            $idcat = $categoryRepository->find($id);
+         if ($id) {
+             $idcat = $categoryRepository->find($id);
             if (!$idcat) {
-                $this->addFlash('error', " L'id $id n'existe pas");
+                
+                 $this->addFlash('error', " L'id " . $id ."n\'existe pas");
                 return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
-            } else {
-
+             } else {
+        
                 $articles = $paginatorInterface->paginate(
                     $articleRepository->findBy(['category' => $id]),
                     $request->query->getInt('page', 1),
                     5
                 );
             }
-        }
+         }
 
         return $this->render('home/index.html.twig', [
             'categories' => $category,
             'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * Route pour l"histoire du société
+     */
+    #[Route('/home/about', name: 'about')]
+    public function about()
+    {
+        return $this->render('home/about.html.twig');
+    }
+
+    /**
+     * Route pour la liste du marché
+     */
+    #[Route('/home/market', name: 'market')]
+    public function market(MarketRepository $marketRepository, Request $request, PaginatorInterface $paginatorInterface): Response
+    {
+        $markets = $paginatorInterface->paginate(
+            $marketRepository->findAll(),        
+            $request->query->getInt('page', 1),
+            $request->query->getInt('numbers', 5)
+        );
+        return $this->render('home/market.html.twig', [
+            'markets' => $markets
         ]);
     }
 
@@ -84,44 +111,4 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * Contrôleur de la page affichant les résultats des recherches faites par le formulaire de recherche dans la navbar
-     */
-    /* #[Route('/recherche/', name: 'research')]
-    public function search(Request $request, PaginatorInterface $paginator, ManagerRegistry $doctrine): Response
-    {
-
-        // Récupération du numéro de la page demandée dans l'url (si il existe pas, 1 sera pris à la place)
-        $requestedPage = $request->query->getInt('page', 1);
-
-        // Si la page demandée est inférieur à 1, erreur 404
-        if ($requestedPage < 1) {
-            throw new NotFoundHttpException();
-        }
-
-        // On récupère la recherche de l'utilisateur depuis l'url ($_GET['q'])
-        $search = $request->query->get('s', '');
-
-        // Récupération du manager général des entités
-        $em = $doctrine->getManager();
-
-        // Création d'une requête permettant de récupérer les articles pour la page actuelle, dont le titre ou le contenu contient la recherche de l'utilisateur
-        $query = $em
-            ->createQuery('SELECT a FROM App\Entity\Article a WHERE a.title  LIKE :search OR a.description LIKE :search ORDER BY a.updated_at DESC')
-            ->setParameters([
-                'search' => '%' . $search . '%',
-            ]);
-
-        // Récupération des articles
-        $articles = $paginator->paginate(
-            $query,
-            $requestedPage,
-            10
-        );
-
-        // Appel de la vue en lui envoyant les articles à afficher
-        return $this->render('home/result.html.twig', [
-            'articles' => $articles,
-        ]);
-    } */
 }

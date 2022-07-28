@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/grid2.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
+
+{% block title %}Nos marchés
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+	
+	<div class="example-wrapper container">		
+        <h3>Retrouvons nous nombreuse !</h3>
+        <table class="table table-hover id="myTable2"">
+			<thead>
+				<tr>
+					<th scope="col" onclick="sortTable(0)">Thème</th>					
+					<th scope="col">Adresse</th>
+                    <th scope="col">Début</th>
+					<th scope="col">Fin</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for market in markets %}
+                <tr>
+                    <td>{{ market.name }}</td>					
+                    <td>{{ market.addresse }} {{ market.zipcode }} {{ market.city }}</td>
+					<td>{{ market.createdAt | date('d/m/Y')}}</td>
+					<td>{{ market.updatedAt | date('d/m/Y')}}</td>
+                </tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

@@ -21,7 +21,6 @@
 			margin: 1em auto;
 			max-width: 800px;
 			width: 95%;
-			font: 18px / 1.5 sans-serif;
 		}
 		.example-wrapper code {
 			background: #F5F5F5;
@@ -30,7 +29,7 @@
 	</style>
 
 	<div
-		class="example-wrapper py-4">
+		class="example-wrapper py-5">
 
 		{# Afficher le message success #}
 		{% for message in app.flashes('success') %}
@@ -43,8 +42,8 @@
 			<h1 class="d-flex align-items-center justify-content-between">Liste des catégories</h1>
 
 			{% if is_granted('ROLE_ADMIN') %}
-				<a href="{{ path('admin_new_category') }}" class="btn btn-secondary btn-sm align-items-right">Ajouter
-					
+				<a href="{{ path('admin_new_category') }}" class="btn btn-secondary btn-sm align-items-right">
+					Ajouter <i class="fa-solid fa-plus"></i>
 				</a>
 			{% endif %}
 		</div>
@@ -61,21 +60,19 @@
 			</form>
 		</div>
 
-		<table class="table table-hover id="myTable2"">
+		<table class="table table-hover id=" mytable2"">
 			<thead>
 				<tr>
-					<th scope="col" onclick="sortTable(0)">Catégory</th>
-
-					{% if is_granted('ROLE_ADMIN') %}
-						<th class="text-center" scope="col">Action</th>
-					{% endif %}
+					<th scope="col" onclick="sortTable(0)">Catégorie</th>
+					<th class="text-center" scope="col">Action</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody method="GET" id="id" name="id">
 				{% for category in categories %}
 					<tr>
-						<td>
-							{{ category.name }}
+						<td>							
+							<a class="text-decoration-none text-black" href="{{ path('admin_listcat', {id: category.id }) }}" value="{{ category.id }}">
+							{{ category.name }}</a>
 						</td>
 
 						{% if is_granted('ROLE_ADMIN') %}
@@ -83,8 +80,8 @@
 								<ul style="list-style: none; " class="d-flex justify-content-between">
 									<div>
 										<a class="text-decoration-none" href="{{ path('admin_edit_category', { id : category.id }) }}" title="Editer ce catégorie">
-											<button class="btn btn-sm btn-outline-success">
-												<i class="fa-solid fa-pencil"></i>
+											<button class="btn btn-sm btn-success">
+												Editer <i class="fa-solid fa-pencil"></i>
 											</button>
 										</a>
 									</div>
@@ -92,19 +89,18 @@
 										<a class="text-decoration-none" href=""></a>
 										<form action="{{ path('admin_delete_category', { id: category.id } ) }}" method="post" class="d-inline" title="Supprimer ce catégorie">
 											<input type="hidden" name="token" value="{{ csrf_token('delete-category-'~ category.id) }}">
-											<button class="btn btn-sm btn-outline-danger">
-												<i class="fa-solid fa-trash-can"></i>
+											<button class="btn btn-sm btn-danger">
+												Supprimer <i class="fa-solid fa-trash-can"></i>
 											</button>
 										</form>
 									</div>
 								</ul>
 							</td>
 						{% endif %}
-
 					</tr>
 				{% endfor %}
 			</tbody>
-		</table>
+		</table>		
 		{# Affiche la numérotations des pages #}
 		{{ knp_pagination_render(categories) }}
 	</div>

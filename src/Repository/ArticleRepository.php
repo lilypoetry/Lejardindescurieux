@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Proxies\__CG__\App\Entity\Article as EntityArticle;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -59,6 +60,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+   
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

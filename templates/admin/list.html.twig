@@ -1,0 +1,87 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Category
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/sort.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper py-5">				
+		
+		<div class="d-flex align-items-center justify-content-between py-3">
+			<h1 class="d-flex align-items-center justify-content-between">Liste des articles par catégorie</h1>			
+		</div>
+		
+		<div class="py-3">
+			<form method="GET">
+				<label for="numbers">Nombre d'articles par page</label>
+				<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+				<select name="numbers" id="numbers" onchange="this.form.submit();">
+					<option value="5">Choisissez une option</option>
+					<option value="5">5 par page</option>
+					<option value="3">3 par page</option>
+					<option value="1">1 par page</option>
+				</select>
+			</form>
+		</div>
+
+		<table class="table table-hover id=" mytable2"">
+			<thead>
+				<tr>
+					<th scope="col" onclick="sortTable(0)">Photo</th>
+					<th scope="col" onclick="sortTable(0)">Article</th>
+					<th scope="col" onclick="sortTable(0)">Quantité</th>
+					<th scope="col" onclick="sortTable(0)">Prix</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if app.request.method == 'GET' %}
+					{% if articles | length == 0 %}
+						<h4>Aucun résultat pour votre recherche.</h4>
+					{% else %}						
+						
+						{% for article in articles %}						
+							<tr>							
+								<td class="py-3" id="id" name="id">
+									{% if vich_uploader_asset(article,'coverFile') %}
+										<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('thumb') }}" alt="image du produit" width="70px">
+									{% endif %}
+								</td>
+								<td class="py-3" id="id" name="id">{{ article.title }}</td>
+								<td id="id" name="id">{{ article.stock }}</td>
+								<td id="id" name="id">{{ article.price }}
+									€</td>							
+							</tr>
+						{% endfor %}
+					{% endif %}					
+				{% endif %}
+			</tbody>
+		</tbody>
+	</table>
+	<a class="btn btn-secondary btn-sm" href="{{ path('admin_category')}}">Retour <i class="fa-solid fa-left-long"></i></a>
+	{# Affiche la numérotations des pages #}
+	{{ knp_pagination_render(articles) }}
+</div>{% endblock %}

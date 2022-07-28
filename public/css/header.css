@@ -1,0 +1,10 @@
+.header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: whitesmoke;
+    font-size: 30px;
+    background-image: url('../imgs/covers/header.jpg');
+    background-size: cover;
+    position: relative;
+  }

@@ -17,7 +17,6 @@
 			margin: 1em auto;
 			max-width: 800px;
 			width: 95%;
-			font: 18px / 1.5 sans-serif;
 		}
 		.example-wrapper code {
 			background: #F5F5F5;
@@ -33,7 +32,7 @@
 			<div class="alert alert-success" role="alert">
 				{{ message }}
 			</div>
-		{% endfor %}
+		{% endfor %}		
 
 		<div class="d-flex align-items-center justify-content-between">
 			<h1 class='d-flex'>Liste des articles</h1>
@@ -76,8 +75,8 @@
 				{% for article in articles %}
 					<tr>
 						{# <td>
-																			<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('vignette') }}" alt="photo d'article" class="">
-																		</td> #}
+							<img src="{{ vich_uploader_asset(article,'coverFile')|imagine_filter('vignette') }}" alt="photo d'article" class="">
+						</td> #}
 						<td
 							class="py-3">
 							{# Si l'image existe, on l'affiche en appliquant un filtre
