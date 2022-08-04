@@ -1,79 +1,104 @@
-/**
- * CAROUSEL
- */
-
-// Chemin où sont situées les images du carousel
-const path = "imgs/slide/";
-
-// Tableau contenant les différentes images du carousel
-const pictures = ["01.jpg", "02.jpg", "03.jpg"];
-
-// Image du slider
-const picture = document.querySelector(".slide img");
-
-// Compteur
-let counter = 0;
-
-// Déclaration du timer pour le setInterval()
-let timer;
-
-// Fonction permettant "d'avancer" sur la slide
-const autoSlide = () => {
-    // Si le compteur est égal à l'index final du tableau, alors on le réinitialise à zéro (on repart au début du tableau)
-    if (counter === pictures.length - 1) {
-        counter = 0
+document.getElementById("outer3").addEventListener("click", toggleState3);
+    
+function toggleState3() {
+  let galleryView = document.getElementById("galleryView")
+  let tilesView = document.getElementById("tilesView")
+  let outer = document.getElementById("outer3");
+  let slider = document.getElementById("slider3");
+  let tilesContainer = document.getElementById("tilesContainer");
+  if (slider.classList.contains("active")) {
+    slider.classList.remove("active");
+    outer.classList.remove("outerActive");
+    galleryView.style.display = "flex";
+    tilesView.style.display = "none";
+    
+    while (tilesContainer.hasChildNodes()) {
+      tilesContainer.removeChild(tilesContainer.firstChild)
+      }  
+  } else {
+    slider.classList.add("active");
+    outer.classList.add("outerActive");
+    galleryView.style.display = "none";
+    tilesView.style.display = "flex";
+     
+    for (let i = 0; i < imgObject.length - 1; i++) {
+      let tileItem = document.createElement("div");
+      tileItem.classList.add("tileItem");
+      tileItem.style.background =  "url(" + imgObject[i] + ")";
+      tileItem.style.backgroundSize = "contain";  
+      tilesContainer.appendChild(tileItem);      
     }
-    else {
-        // Sinon, on ajoute 1 à notre compteur
-        counter += 1;
-    }
-
-    // Modifie l'attribut "src" de l'image en sélectionnant l'élément suivant du tableau
-    picture.src = `${path}${pictures[counter]}`;
+  };
 }
 
-// Écouteur d'évènement sur la flèche pointant vers la droite
-const arrowRight = document.querySelector(".bi-caret-right");
-arrowRight.addEventListener("click", autoSlide);
+let imgObject = [
+  "../imgs/covers/header.jpg",
+  "../imgs/covers/register.jpg",
+  "https://placeimg.com/450/450/architecture",
+  "https://placeimg.com/450/450/nature",
+  "https://placeimg.com/450/450/people",
+  "https://placeimg.com/450/450/tech",
+  "https://picsum.photos/id/1/450/450",
+  "https://picsum.photos/id/8/450/450",
+  "https://picsum.photos/id/12/450/450",
+  "https://picsum.photos/id/15/450/450",
+  "https://picsum.photos/id/5/450/450",
+];
 
-// Écouteur d'évènement sur la flèche pointant vers la gauche
-const arrowLeft = document.querySelector(".bi-caret-left");
-arrowLeft.addEventListener("click", () => {
+let mainImg = 0;
+let prevImg = imgObject.length - 1;
+let nextImg = 1;
 
-    // Si le compteur est à zéro, je suis au début du tableau
-    if (counter === 0) {
-        // On met à jour le compteur avec le dernier index du tableau
-        counter = pictures.length - 1;
-    }
-    else {
-        // Sinon on décrémente de 1
-        counter -= 1;
-    }
+function loadGallery() {
 
-    // Modifie l'attribut "src" de l'image en sélectionnant l'élément suivant du tableau
-    picture.src = `${path}${pictures[counter]}`;
+  let mainView = document.getElementById("mainView");
+  mainView.style.background = "url(" + imgObject[mainImg] + ")";
+
+  let leftView = document.getElementById("leftView");
+  leftView.style.background = "url(" + imgObject[prevImg] + ")";
+  
+  let rightView = document.getElementById("rightView");
+  rightView.style.background = "url(" + imgObject[nextImg] + ")";
+  
+  let linkTag = document.getElementById("linkTag")
+  linkTag.href = imgObject[mainImg];
+
+};
+
+function scrollRight() {
+  
+  prevImg = mainImg;
+  mainImg = nextImg;
+  if (nextImg >= (imgObject.length -1)) {
+    nextImg = 0;
+  } else {
+    nextImg++;
+  }; 
+  loadGallery();
+};
+
+function scrollLeft() {
+  nextImg = mainImg
+  mainImg = prevImg;
+   
+  if (prevImg === 0) {
+    prevImg = imgObject.length - 1;
+  } else {
+    prevImg--;
+  };
+  loadGallery();
+};
+
+document.getElementById("navRight").addEventListener("click", scrollRight);
+document.getElementById("navLeft").addEventListener("click", scrollLeft);
+document.getElementById("rightView").addEventListener("click", scrollRight);
+document.getElementById("leftView").addEventListener("click", scrollLeft);
+document.addEventListener('keyup',function(e){
+    if (e.keyCode === 37) {
+    scrollLeft();
+  } else if(e.keyCode === 39) {
+    scrollRight();
+  }
 });
 
-// Fonction permettant d'arrêter le carousel
-const stopCarousel = () => {
-    // "Tue" le setInterval()
-    clearInterval(timer);
-}
-
-// Fonction permettant de démarrer le carousel en automatique
-const startCarousel = () => {
-    // Appelle la fonction "autoSlide" toutes les 2 secondes
-    timer = setInterval(autoSlide, 3000);
-}
-
-startCarousel();
-
-// Quand le pointeur de la souris se retrouve sur l'image du carousel, on stop le setInterval()
-picture.addEventListener("mouseover", stopCarousel);
-picture.addEventListener("mouseout", startCarousel);
-
-arrowRight.addEventListener("mouseover", stopCarousel);
-arrowRight.addEventListener("mouseout", startCarousel);
-
-arrowLeft.addEventListener("mouseover", stopCarousel);
-arrowLeft.addEventListener("mouseout", startCarousel);
+loadGallery();

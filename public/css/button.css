@@ -1,4 +1,80 @@
-a .button {
+/* a .button {
     color:aliceblue;
     background: black;
 }
+
+tbody button .btn {
+    background-color: darkgoldenrod;
+    color: aliceblue;
+    border-radius: 2rem;
+    font-size: xx-small;
+} */
+
+.btn-edit {
+    display: inline-block;
+    padding: 5px 25px;
+    font-size: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #367738;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0 4px #999;
+  }
+  
+  .btn-edit:hover {background-color: hsl(69, 92%, 49%)}
+  
+  .btn-edit:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+  }
+
+  .btn-sup {
+    display: inline-block;
+    padding: 5px 25px;
+    font-size: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #b91307;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px #999;
+  }
+  
+  .btn-sup:hover {background-color: rgb(248, 160, 101)}
+  
+  .btn-sup:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+  }
+
+  .btn-reg {
+    display: inline-block;
+    padding: 5px 25px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: rgb(2, 15, 15);
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px rgb(199, 175, 175);
+  }
+  
+  .btn-reg:hover {background-color: rgb(248, 160, 101)}
+  
+  .btn-reg:active {
+    background-color: lemonchiffon;
+    box-shadow: 0 5px rgb(231, 96, 96);
+    transform: translateY(2px);
+  }

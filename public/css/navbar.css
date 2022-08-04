@@ -5,7 +5,7 @@
   --blue: #124559;
   --black: black;
   --metal: #464E2E;
-  --silver: #b4b4b4;
+  --silver: #a5b1c2;
   --white: #ffffff;
   --brown: #b36700;  
   --yellow: #f0932b;
@@ -53,6 +53,7 @@ body .navbar {
 /* Background de la navbar */
 body .bg {
   background: var(--blue);
+  /* background: transparent; */
 }
 
 .logo {

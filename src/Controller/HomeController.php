@@ -27,23 +27,15 @@ class HomeController extends AbstractController
         $articles = $paginatorInterface->paginate(
             $articleRepository->findAll(),
             $request->query->getInt('page', 1),
-            $request->query->getInt('numbers', 6),
+            $request->query->getInt('numbers', 100),
         );
 
          if ($id) {
-             $idcat = $categoryRepository->find($id);
-            if (!$idcat) {
-                
-                 $this->addFlash('error', " L'id " . $id ."n\'existe pas");
-                return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
-             } else {
-        
-                $articles = $paginatorInterface->paginate(
-                    $articleRepository->findBy(['category' => $id]),
-                    $request->query->getInt('page', 1),
-                    5
-                );
-            }
+             $articles = $paginatorInterface->paginate(
+                $articleRepository->findBy(['category' => $id]),
+                $request->query->getInt('page', 1),
+                5
+            );
          }
 
         return $this->render('home/index.html.twig', [
@@ -67,11 +59,19 @@ class HomeController extends AbstractController
     #[Route('/home/market', name: 'market')]
     public function market(MarketRepository $marketRepository, Request $request, PaginatorInterface $paginatorInterface): Response
     {
+        $results = $marketRepository->findAll();
+        $query = $request->query->get('query');
+        if ($query) {
+            $results = $marketRepository->findMarketByName($query);
+        }
+        
+        // Création de la pagination résultats limité par 5
         $markets = $paginatorInterface->paginate(
-            $marketRepository->findAll(),        
+            $results,
             $request->query->getInt('page', 1),
-            $request->query->getInt('numbers', 5)
+            $request->query->getInt('numbers', 5),
         );
+        
         return $this->render('home/market.html.twig', [
             'markets' => $markets
         ]);
@@ -94,16 +94,11 @@ class HomeController extends AbstractController
             $articles = $paginatorInterface->paginate(
                 $articleRepository->findArticlesByName($query),
                 $request->query->getInt('page', 1),
-                6
+                $request->query->getInt('numbers', 25)
             );
 
             $categories = $categoryRepository->findAll($query);
-            // $categories = $paginatorInterface->paginate(
-            //     $categoryRepository->findAll($query),
-            //     $request->query->getInt('page',1),6
-            // );
-        }
-        // dd($articles);
+        };
 
         return $this->render('home/result.html.twig', [
             'articles' => $articles,

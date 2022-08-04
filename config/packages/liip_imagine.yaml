@@ -22,8 +22,8 @@ liip_imagine:
             quality: 85
             # Listes des différentes transformations
             filters:
-                # Création d'une vignette
-                thumbnail: { size: [600, 350], mode: outbound }
+                # Création d'une thumnail
+                thumbnail: { size: [120, 90], mode: outbound }
         
         # Autres filtres...
         vignette:

@@ -1,4 +1,29 @@
 body {
     background-image: url(../imgs/covers/register3.jpg);
     background-size: cover;    
+    margin-top: 100px; /* Add a top margin to avoid content overlay */
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    /* font-family: 'Inter', sans-serif; */
+    font-family: 'Poppins', sans-serif;
 }
+
+.container {
+    padding-left: 450px;
+}
+.formulaire {    
+    width: 500px;
+    padding: 20px;
+    /* transform: translate(-50%, -50%); */
+    background: rgba(162, 171, 197, 0.5);
+    /* box-sizing: border-box; */
+    /* box-shadow: 0 10px 15px rgba(31, 30, 30, 0.6); */
+    border-radius: 5px;
+    margin: 0 0 30px;
+  }
+  
+  .formulaire .registration {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #124559;
+    text-align: center;
+  }

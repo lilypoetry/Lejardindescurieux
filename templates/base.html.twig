@@ -31,7 +31,7 @@
 			{# js pour le menu burger #}
 			<script src="{{asset('bootstrap/js/jquery-3.4.0.min.js')}}"></script>
 			<script src="{{asset('bootstrap/js/popper.min.js')}}"></script>
-			<script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>			
+			<script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 		{% endblock %}
 	</head>
 	<body>
@@ -45,7 +45,7 @@
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				
+
 				<div class="justify-content-end">
 					<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -61,7 +61,7 @@
 
 							<li class="nav-item">
 								<a class="nav-link text" href="{{ path('market') }}">Marchés</a>
-							</li>							
+							</li>
 
 							{% if app.user is null %}
 								<li class="nav-item">
@@ -102,12 +102,12 @@
 					</div>
 				</div>
 			</div>
-			<form class="d-flex col-4" role="search" action="{{ path('search') }}">
-					<input class="form-control me-2" name="query" type="search" placeholder="Rechercher" aria-label="Search">
-					<button class="btn text-white" type="submit">
-						<i class="fa-solid fa-magnifying-glass"></i>
-					</button>
-				</form>
+			<form class="d-flex col-12 col-lg-4" role="search" action="{{ path('search') }}">
+				<input class="form-control me-2" name="query" type="search" placeholder="Rechercher" aria-label="Search">
+				<button class="btn text-white" type="submit">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+			</form>
 		</nav>
 		<div class="gradient"></div>
 		{% block body %}{% endblock %}
@@ -151,7 +151,7 @@
 					</a>
 
 					<!-- Whatsapp -->
-					<a class="btn btn-outline-light btn-floating m-1" href="https://wa.me/+33614993917" role="button">
+					<a class="btn btn-outline-light btn-floating m-1" href="https://wa.me/+33614993917" target="_blank" role="button">
 						<i class="fa-brands fa-whatsapp"></i>
 					</a>
 				</section>
@@ -160,18 +160,18 @@
 			</div>
 			<!-- Grid container -->
 			<hr style="width: 30%; margin: auto; height: 1px solid white !important;"></hr>
-			<!-- Copyright -->
-			<div class="text-center p-3">
-				<div class="text-center adresse">
-					<p>
-						© 2022 Copyright:  Lejardindescurieux
-					</p>
-					<p>9 rue des Rondeau, 71240 VERS - FRANCE</p>
-					<p>
-						<a class="text-decoration-none text-white" href="mailto: lejardindescurieux@yahoo.fr">lejardindescurieux@yahoo.fr</a>
-					</p>
-				</div>
+		<!-- Copyright -->
+		<div class="text-center p-3">
+			<div class="text-center adresse">
+				<p>
+					© 2022 Copyright:  Lejardindescurieux
+				</p>
+				<p>9 rue des Rondeau, 71240 VERS - FRANCE</p>
+				<p>
+					<a class="text-decoration-none text-white" href="mailto: lejardindescurieux@yahoo.fr">lejardindescurieux@yahoo.fr</a>
+				</p>
 			</div>
+		</div>
 		{% block footer %}{% endblock %}
 	</body>
 </html>

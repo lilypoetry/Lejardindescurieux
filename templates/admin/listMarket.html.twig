@@ -2,13 +2,14 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link href="{{ asset('css/grid2.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/button.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
+	<script src="{{ asset('js/sort.js') }}"></script>
 {% endblock %}
 
 {% block title %}Nos marchés
@@ -60,7 +61,7 @@
 					<th scope="col" onclick="sortTable(0)">Thème</th>
 					<th scope="col">Révendeur</th>
 					<th scope="col">Adresse</th>
-					<th scope="col">Début</th>
+					<th scope="col" onclick="sortTable(1)">Début</th>
 					<th scope="col">Fin</th>
 					<th scope="col">Action</th>
 				</tr>
@@ -84,17 +85,19 @@
 								<ul class="list d-flex justify-content-between">
 									<div>
 										<a class="text-decoration-none" href="{{ path('admin_edit_market', { id : market.id }) }}" title="Editer l'évènement">
-											<button class="btn btn-sm btn-success">
-												Editer <i class="fa-solid fa-pencil"></i>
+											<button class="btn-edit">
+												Editer 
+												{# <i class="fa-solid fa-pencil"></i> #}
 											</button>
 										</a>
 									</div>
 									<div>
-										<a class="text-decoration-none" href=""></a>
+										<a class="text-decoration-none px-1" href=""></a>
 										<form action="{{ path('admin_delete_market', { id: market.id } ) }}" method="post" class="d-inline" title="Supprimer cet évènement">
 											<input type="hidden" name="token" value="{{ csrf_token('delete-market-'~ market.id) }}">
-											<button class="btn btn-sm btn-danger">
-												Supprimer <i class="fa-solid fa-trash-can"></i>
+											<button class="btn-sup">
+												Supprimer 
+												{# <i class="fa-solid fa-trash-can"></i> #}
 											</button>
 										</form>
 									</div>
@@ -105,6 +108,9 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<div>
+			{{ knp_pagination_render(markets) }}
+		</div>
 	</div>
 
 {% endblock %}

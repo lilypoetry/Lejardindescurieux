@@ -2,12 +2,14 @@
 
 namespace App\Form;
 
+use ContainerS9hFons\getVictorPrdhRecaptchaBundle_RecaptchaTypeService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 
 class ContactType extends AbstractType
 {
@@ -19,6 +21,7 @@ class ContactType extends AbstractType
             ->add('message', TextareaType::class, [
                 'attr' => ['rows' => 6],
             ])
+            ->add('captcha', RecaptchaType::class)
         ;
     }
 

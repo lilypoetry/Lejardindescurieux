@@ -8,6 +8,8 @@
 	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/login.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/form.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/button.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/password.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -17,19 +19,7 @@
 
 {% block body %}
 
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-
-	<div class="example-wrapper formulaire">
+	<div class="container formulaire">
 		<form method="post">
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -53,12 +43,24 @@
 				<div class="input-box pb-3">					
 					<label for="inputPassword">Password</label>
 					<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" autocomplete="current-password" required>
-					
+										
 					<div class="show-box">
-						<a class="text-sm fw-lighter" href="#">Afficher password</a>
+						<a class="text-sm fw-lighter" href="#">Afficher mot de passe</a>
 					</div>
 				</div> 
 			</div>
+		
+			{# https://believemy.com/r/afficher-cacher-sur-un-champ-de-mot-de-passe #}
+					
+			{# <label>
+  				<input type="password" placeholder="Mot de passe">
+
+				<div class="password-icon">
+					<i class="fa-solid fa-eye"></i>
+					<i class="fa-solid fa-eye-slash"></i>
+				</div>
+			</label>			 #}
+
 			{# Le lien pour reinisialisation du mot de passe #}
 			<a class="py-3" href="{{ path('app_forgot_password_request') }}" title="Mot de passe oublié ?">
 				Mot de passe oublié
@@ -68,7 +70,7 @@
 			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 			{# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-						                See https://symfony.com/doc/current/security/remember_me.html #}
+			See https://symfony.com/doc/current/security/remember_me.html #}
 
 			<div class="checkbox mb-3">
 				<label>
@@ -76,7 +78,7 @@
 					Se souvenir de moi
 				</label>
 			</div>
-			<button class="btn btn-sm btn-secondary" type="submit">
+			<button class="btn-reg" type="submit">
 				Se connecter
 			</button>
 

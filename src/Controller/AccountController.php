@@ -84,7 +84,7 @@ class AccountController extends AbstractController
             //     $request->query->getInt('page',1),6
             // );
         }
-        dd($users);
+        // dd($users);
 
         return $this->render('account/users.html.twig', [
             'users' => $users

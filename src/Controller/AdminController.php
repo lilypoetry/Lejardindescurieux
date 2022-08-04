@@ -100,7 +100,7 @@ class AdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    
+
     // Route pour supprimer un article
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/article/delete/{id}', name: 'admin_delete_article', requirements: ['id' => '\d+'], methods: ['POST'])]
@@ -119,20 +119,20 @@ class AdminController extends AbstractController
     }
 
     /** Route pour voir article en details */
-    #[Route('/admin/article/{id}', name: 'admin_detail_article', requirements:['id' => '\d+'])]
-    public function details(Article $article): Response 
+    #[Route('/admin/article/{id}', name: 'admin_detail_article', requirements: ['id' => '\d+'])]
+    public function details(Article $article): Response
     {
         return $this->render('admin/detailArticle.html.twig', [
             'article' => $article
         ]);
-    }    
+    }
 
     // Route pour afficher les articles par catégorie
     #[Route('/admin/listcat', name: 'admin_listcat')]
     public function list(CategoryRepository $categoryRepository, Request $request, ArticleRepository $articleRepository, PaginatorInterface $paginatorInterface): Response
-    {   
+    {
         // SuperGloball en GET 
-        $id = $request->query->get("id");    
+        $id = $request->query->get("id");
 
         // Cherche tous les articles
         $category = $categoryRepository->findAll();
@@ -141,7 +141,7 @@ class AdminController extends AbstractController
             $articleRepository->findAll(),
             $request->query->getInt('page', 1),
             5
-        );   
+        );
 
         // Si il existe un article de catégorie
         if ($id) {
@@ -150,8 +150,7 @@ class AdminController extends AbstractController
             if (!$idcat) {
                 $this->addFlash('error', " L'id $id n'existe pas");
                 return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
-            } 
-            else {
+            } else {
                 // Affiche l'article de categorie
                 $articles = $paginatorInterface->paginate(
                     $articleRepository->findBy(['category' => $id]),
@@ -278,18 +277,25 @@ class AdminController extends AbstractController
 
         return $this->json(['role' => $role]);
     }
-    
+
     // Route pour afficher tous les marchés
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/market', name: 'admin_market')]
     public function listMarket(Request $request, MarketRepository $marketRepository, PaginatorInterface $paginatorInterface): Response
     {
-        $markets = $paginatorInterface->paginate(
-            $marketRepository->findAll(),
-            $request->query->getInt('page', 1),
-            $request->query->getInt('numbers', 100)
-        );
+        $results = $marketRepository->findAll();
+        $query = $request->query->get('query');
+        if ($query) {
+            $results = $marketRepository->findMarketByName($query);
+        }
         
+        // Création de la pagination résultats limité par 5
+        $markets = $paginatorInterface->paginate(
+            $results,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('numbers', 5),
+        );
+
         return $this->render('admin/listMarket.html.twig', [
             'markets' => $markets
         ]);
@@ -323,7 +329,7 @@ class AdminController extends AbstractController
     // Route pour editer le marché
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/market/edit/{id}', name: 'admin_edit_market', requirements: ['id' => '\d+'])]
-    public function editMarket($id = null, Request $request, Market $market, MarketRepository $marketRepository): Response
+    public function editMarket(Request $request, Market $market, MarketRepository $marketRepository): Response
     {
         $form = $this->createForm(MarketFormType::class, $market);
         $form->handleRequest($request);
@@ -339,7 +345,7 @@ class AdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    
+
     // Route pour supprimer un marché
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/market/delete/{id}', name: 'admin_delete_market', requirements: ['id' => '\d+'], methods: ['POST'])]

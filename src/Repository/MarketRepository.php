@@ -40,7 +40,7 @@ class MarketRepository extends ServiceEntityRepository
     }
 
     // Fonction pour un bar de recherche pour retrouver le marché
-    public function findMarketBy(string $query)
+    public function findMarketByName(string $query)
     {
         $qb = $this->createQueryBuilder('p');
         $qb->where(
@@ -49,7 +49,6 @@ class MarketRepository extends ServiceEntityRepository
                     $qb->expr()->like('p.name', ':query'),
                     $qb->expr()->like('p.city', ':query'),
                     $qb->expr()->like('p.zipcode', ':query'), 
-                    $qb->expr()->like('p.user.lastname', ':query'),  
                     $qb->expr()->like('p.createdAt', ':query'),       
                 ),
                 $qb->expr()->isNotNull('p.updatedAt')
