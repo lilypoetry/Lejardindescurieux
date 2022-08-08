@@ -7,23 +7,25 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-.container {
-    padding-left: 450px;
+
+.center {
+  margin: 1em auto;
+  max-width: 800px;
+  width: 100%;
+  align-items: center;
+  padding: 2px 6px;
 }
-.formulaire {    
-    width: 500px;
-    padding: 20px;
-    /* transform: translate(-50%, -50%); */
-    background: rgba(162, 171, 197, 0.5);
-    /* box-sizing: border-box; */
-    /* box-shadow: 0 10px 15px rgba(31, 30, 30, 0.6); */
-    border-radius: 5px;
-    margin: 0 0 30px;
+
+
+.formulaire h3 {
+  margin-left: 400px !important;
+}
+
+
+@media screen and (max-width: 600px) {
+  .formulaire, input[type=submit] {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0 !important;
   }
-  
-  .formulaire .registration {
-    margin: 0 0 30px;
-    padding: 0;
-    color: #124559;
-    text-align: center;
-  }
+}

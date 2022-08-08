@@ -1,40 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Panier !
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Mon panier</h1>
 
-    <table class="table">
+	<div class="container wrapper py-6">
+		<h1 class="top">Mon panier
+			{{ quantityCart }}</h1>
+		<table class="table">
 			<thead>
 				<tr>
 					<th scope="col">Photo</th>
 					<th scope="col">Article</th>
 					<th scope="col">Quantité</th>
-					<th scope="col">Prix</th>
-                    <th scope="col">Total</th>
-					<th scope="col">Action</th>					
+					<th scope="col">Prix unité</th>
+					<th scope="col">Prix/produit</th>
+					<th scope="col">Action</th>
 				</tr>
 			</thead>
-            <tbody>
-                {% for element in dataCart %}
-                    
-                {% else %}
-                    <tr>
-                        <td colspan="5" class="text-center">
-                        
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+			<tbody>
+				{% for element in dataCart %}
+					<tr>
+						
+						<td><img src="imgs/covers/{{ element.article.cover }}" alt="{{element.article.title}}" width="70px"></td>
+						<td>{{element.article.title}}</td>
+						<td>
+							<a href="{{path('add_cart', {'id' : element.article.id})}}">
+								<i class="fa-solid fa-plus"></i>
+							</a>
+							<div class="d-flex justify-content-space-between">{{element.quantity}}</div>
+							<a href="{{path('remove_cart', {'id' : element.article.id})}}">
+								<i class="fa-solid fa-minus"></i>
+							</a>
+						</td>
 
-    {# {{ dump() }} #}
-</div>
+						<td class="text-end">{{(element.article.price)|number_format(2,',',' ')}}
+							€</td>
+						{#<td>{{dataCarts.article.total}}</td>#}
+						<td class="text-end">{{(element.quantity * element.article.price)|number_format(2,',',' ')}} €</td>
+						<td class="space-between">
+							<a class="btn-sup text-decoration-none" href="{{ path('delete_cart', { 'id' : element.article.id }) }}">
+								<i class="fa-solid fa-trash-can"></i>
+								Supprimer
+							</a>
+						</td>		
+					</tr>
+				{% endfor %}
+				<tr>
+					<td colspan="4">Total</td>
+					<td class="text-end"> {{ (total) | number_format(2,',',' ') }} €</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		{# {{ dump() }} #}
+	</div>
 {% endblock %}

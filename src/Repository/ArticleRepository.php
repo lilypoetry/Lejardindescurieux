@@ -40,7 +40,7 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    // Fonction pour un bar de recherche pour
+    // Fonction pour la barre de recherche
     public function findArticlesByName(string $query)
     {
         $qb = $this->createQueryBuilder('p');

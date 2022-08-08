@@ -35,8 +35,14 @@
 
 			<div class="formulaire">
 				{{ form_start(form) }}
-				{{ form_widget(form) }}
-				<button class="btn btn-secondary btn-sm">{{ button_label|default('Enregistrer') }}</button>
+					{{ form_row(form.name) }}
+					{{ form_row(form.addresse, {'id':"adresse"}) }}
+					{{ form_row(form.city, {'id':"ville"}) }}
+					{{ form_row(form.zipcode, {'id':"cp"}) }}
+					{{ form_row(form.createdAt) }}
+					{{ form_row(form.updatedAt) }}
+					{{ form_row(form.user) }}
+					<button class="btn btn-secondary btn-sm">{{ button_label|default('Enregistrer') }}</button>
 				{{ form_end(form) }}
 			</div>
 

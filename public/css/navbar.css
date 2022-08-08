@@ -18,26 +18,16 @@ body {
   font-family: 'Poppins', sans-serif;
   /* font-weight: 500;  */
   position: relative;
-
-  /* Definir la taille de la page */
-  /* min-height: 80vh;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -60px; */
 }
 
-body .navbar {
-  /* overflow: hidden; */
-  position: fixed;
-  /* Set the navbar to fixed position */
+.navbar { 
   top: 0;
-  /*Position the navbar at the top of the page */
   width: 100%;
   /* Full width */
-  z-index: 1;
+  z-index: 500;
   /* box-sizing: border-box; */
   box-shadow: 0 2px 5px rgba(128, 130, 134, 0.945);
-  
+  position: fixed;
 }
 
 /* Links inside the navbar */

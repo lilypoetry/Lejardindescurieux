@@ -4,6 +4,9 @@ twig:
     form_themes: ['bootstrap_5_layout.html.twig']
     cache: false
 
+    globals:
+        uuid: '@App\Controller\CartController'
+
 when@test:
     twig:
         strict_variables: true

@@ -2,17 +2,13 @@ body {
     /* background-image: url(https://cdn.shopify.com/s/files/1/0070/7032/files/trending-products_c8d0d15c-9afc-47e3-9ba2-f7bad0505b9b.png?format=webp&v=1614559651&width=1024); */
     background-image: url(../imgs/covers/connect.JPG);
     background-size: cover;
-    
+    height: 100%;
 }
-/* .container {
-    
-    max-width: 380px;
-    margin: auto;
-    background-color: rgba(0,0,0,0.2);
-    text-align: center;
-    border-radius: 20px;
-    padding: 40px;
-    color: #fff;
-    box-sizing: border-box;
-    margin-top: 100px;
-} */
+.container {
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.show-box {
+    color: rgb(44, 13, 131);
+}

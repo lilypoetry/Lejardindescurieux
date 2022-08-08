@@ -14,7 +14,7 @@
 {% block body %}
 
 	{# Page d'accueil #}
-	<header class="header mt-5">
+	<header class="header ">
 		{% if app.user is null %}
 			<h1 class="word pt-3">Contactez-nous pour devenir notre revendeur !</h1>
 		{% else %}
@@ -87,7 +87,7 @@
 									<h3 class="price">Prix : {{ article.price }} €</h3>
 								</div> #}
 							</div>
-						</a>
+						</a>						
 					</div>
 				{% endfor %}
 			</div>

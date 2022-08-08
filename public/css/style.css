@@ -12,7 +12,7 @@
 }
 
 body {
-  margin: 0;
+  margin-top: 0;
   font-family: 'Edu VIC WA NT Beginner', cursive;
   /* font-family: 'Inter', sans-serif; */
   font-family: 'Poppins', sans-serif;
@@ -24,7 +24,7 @@ body {
   top: 0;
   width: 100%;
   /* Full width */
-  z-index: 1;
+  z-index: 500;
   /* box-sizing: border-box; */
   box-shadow: 0 2px 5px rgba(128, 130, 134, 0.945);
   position: fixed;
@@ -41,7 +41,7 @@ body {
 }
 
 /* Background de la navbar */
-body .bg {
+body nav .bg {
   background: var(--blue);
   /* background: transparent; */
 }
@@ -66,3 +66,26 @@ ul li {
 .text:hover, .fa-solid:hover {
   color: yellow;
 }
+
+/* Footer */
+.footerBox {
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--blue);
+    color: white;
+    text-align: center;
+    z-index: 20;
+}
+
+hr .line {
+    width:25%;
+    margin: auto;
+}
+
+footer .adresse {
+    line-height: 0.3px;
+    font-size: smaller;
+}
+

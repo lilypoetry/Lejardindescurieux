@@ -59,6 +59,7 @@ class MarketRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    
 //    /**
 //     * @return Market[] Returns an array of Market objects
 //     */

@@ -16,7 +16,10 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'app_contact')]
     public function index(Request $request, MailerService $mailer): Response
     {
+        // Créer le formulaire
         $form = $this->createForm(ContactType::class);
+
+        // Remplis l'objet des données du formulaire
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $contactFormData = $form->getData();

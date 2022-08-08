@@ -29,7 +29,7 @@ hr .line {
     margin: auto;
 }
 
-footer .adresse {
+footer .adresse p {
     line-height: 0.3px;
     font-size: smaller;
 }
