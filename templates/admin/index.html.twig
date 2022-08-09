@@ -93,8 +93,8 @@
 								<ul class="list d-flex justify-content-between">
 									<div>
 										<a class="text-decoration-none" href="{{ path('admin_edit_article', { id : article.id }) }}" title="Editer cet article">
-											<button class="btn btn-sm btn-success">
-												Editer <i class="fa-solid fa-pencil"></i>
+											<button class="btn btn-edit">
+												<i class="fa-solid fa-pencil"></i> Editer
 											</button>
 										</a>
 									</div>
@@ -102,8 +102,8 @@
 										<a class="text-decoration-none" href=""></a>
 										<form action="{{ path('admin_delete_article', { id: article.id } ) }}" method="post" class="d-inline" title="Supprimer cet article">
 											<input type="hidden" name="token" value="{{ csrf_token('delete-article-'~ article.id) }}">
-											<button class="btn btn-sm btn-danger">
-												Supprimer <i class="fa-solid fa-trash-can"></i>
+											<button class="btn btn-sup">
+												<i class="fa-solid fa-trash-can"></i> Supprimer
 											</button>
 										</form>
 									</div>

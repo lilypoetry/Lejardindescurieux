@@ -96,8 +96,7 @@
 										<form action="{{ path('admin_delete_market', { id: market.id } ) }}" method="post" class="d-inline" title="Supprimer cet évènement">
 											<input type="hidden" name="token" value="{{ csrf_token('delete-market-'~ market.id) }}">
 											<button class="btn-sup">
-												Supprimer 
-												{# <i class="fa-solid fa-trash-can"></i> #}
+												Supprimer 												
 											</button>
 										</form>
 									</div>

@@ -13,6 +13,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\MarketRepository;
 use App\Repository\UserRepository;
+use App\Services\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -135,34 +136,33 @@ class AdminController extends AbstractController
         $id = $request->query->get("id");
 
         // Cherche tous les articles
-        $category = $categoryRepository->findAll();
+        $category = $categoryRepository->findById($id);
         $articles = $paginatorInterface->paginate(
-            // $articleRepository->findBy(['category' => $id]),
             $articleRepository->findAll(),
             $request->query->getInt('page', 1),
             5
         );
 
         // Si il existe un article de catégorie
-        if ($id) {
-            $idcat = $categoryRepository->find($id);
-            // // Si pas d'article page erreur 404
-            if (!$idcat) {
-                $this->addFlash('error', " L'id $id n'existe pas");
-                return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
-            } else {
-                // Affiche l'article de categorie
-                $articles = $paginatorInterface->paginate(
-                    $articleRepository->findBy(['category' => $id]),
-                    // $articleRepository->findAll(),
-                    $request->query->getInt('page', 1),
-                    5
-                );
-            }
-        }
+        // if ($id) {
+        //     $idcat = $categoryRepository->find($id);
+        //     // // Si pas d'article page erreur 404
+        //     if (!$idcat) {
+        //         $this->addFlash('error', " L'id $id n'existe pas");
+        //         return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        //     } else {
+        //         // Affiche l'article de categorie
+        //         $articles = $paginatorInterface->paginate(
+        //             $articleRepository->findBy(['category' => $id]),
+        //             // $articleRepository->findAll(),
+        //             $request->query->getInt('page', 1),
+        //             5
+        //         );
+        //     }
+        // }
         // $categories = $categoryRepository->findAll();
         return $this->render('admin/list.html.twig', [
-            'categories' => $category,
+            'category' => $category,
             'articles' => $articles,
         ]);
     }
@@ -269,11 +269,15 @@ class AdminController extends AbstractController
     // Route pour editer le role utilisateur
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/users/edit/{id}/{role}', name: 'app_admin_user_role', methods: ['POST'])]
-    public function roles(User $user, string $role, UserRepository $userRepository,): JsonResponse
+    public function roles(User $user, string $role, UserRepository $userRepository, MailerService $mailer): JsonResponse
     {
-
         $user->setRoles([$role]);
         $userRepository->add($user, true);
+
+        // Envoi d'un email en utilisant notre service
+        $subject = 'Changement de Rôle '; 
+            $content = 'Bonjour !  '.'<p>Nous venons de changer votre rôle utilisateur.</p><p>Désormais vous êtes sous le rôle :'. $role .' 👋</p><p>A bientôt</p><p>Cordialement,</p><p>Lejardindescurieux</p>';
+            $mailer->sendEmail(subject: $subject, content: $content);        
 
         return $this->json(['role' => $role]);
     }

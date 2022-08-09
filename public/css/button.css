@@ -13,7 +13,7 @@ tbody button .btn {
 .btn-edit {
     display: inline-block;
     padding: 5px 25px;
-    font-size: 10px;
+    font-size: 12px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -21,7 +21,7 @@ tbody button .btn {
     color: #fff;
     background-color: #367738;
     border: none;
-    border-radius: 35px;
+    border-radius: 25px;
     box-shadow: 0 4px #999;
   }
   
@@ -36,7 +36,7 @@ tbody button .btn {
   .btn-sup {
     display: inline-block;
     padding: 5px 25px;
-    font-size: 10px;
+    font-size: 12px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -71,7 +71,7 @@ tbody button .btn {
     box-shadow: 0 4px rgb(199, 175, 175);
   }
   
-  .btn-reg:hover {background-color: rgb(248, 160, 101)}
+  .btn-reg:hover {background-color: rgb(88, 111, 241)}
   
   .btn-reg:active {
     background-color: lemonchiffon;

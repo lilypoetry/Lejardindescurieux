@@ -7,6 +7,7 @@
 	{{ parent() }}
 	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/button.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -104,15 +105,15 @@
 							<td class="adminChange ">
 								<ul class="list d-flex justify-content-between ">
 									<div>
-										<a data-id="{{ user.id }}" data-role="ROLE_ADMIN" class="role btn btn-secondary btn-sm">Admin</a>
+										<a data-id="{{ user.id }}" data-role="ROLE_ADMIN" class="role btn-reg">Admin</a>
 									</div>
 
 									<div>
-										<a data-id="{{ user.id }}" data-role="ROLE_USER" class="role btn btn-secondary btn-sm" id="rolesUser_{{ user.id }}">User</a>
+										<a data-id="{{ user.id }}" data-role="ROLE_USER" class="role btn-sup" id="rolesUser_{{ user.id }}">User</a>
 									</div>
 
 									<div>
-										<a data-id="{{ user.id }}" data-role="ROLE_RESELLER" class="role btn btn-secondary btn-sm" id="rolesReseller_{{ user.id }}">Reseller</a>
+										<a data-id="{{ user.id }}" data-role="ROLE_RESELLER" class="role btn-edit" id="rolesReseller_{{ user.id }}">Reseller</a>
 									</div>
 								</ul>
 							</td>

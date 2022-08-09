@@ -62,24 +62,28 @@
 								<a class="nav-link text" href="{{ path('market') }}">Marchés</a>
 							</li>
 
+							{# Si utilisateur n'est pas connecté #}
 							{% if app.user is null %}
 								<li class="nav-item">
 									<a class="nav-link text" href="{{ path('app_register') }}">Ouvrir un compte</a>
 								</li>
 							{% endif %}
 
+							{# Si un utilisateur est connecté #}
 							{% if app.user is not null %}
 								<li class="nav-item">
 									<a class="nav-link text" href="{{ path('app_account') }}">Mon compte</a>
 								</li>
 							{% endif %}
 
+							{# Si utilisateur n'est pas connecté #}
 							{% if app.user is null %}
 								<li class="nav-item">
 									<a class="nav-link text" href="{{ path('app_login') }}">Se connecter</a>
 								</li>
 							{% endif %}
 
+							{# Si un utilisateur est connecté #}
 							{% if app.user is not null %}
 								<li class="nav-item">
 									<a class="nav-link text" href="{{ path('app_logout') }}">Se déconnecter</a>
@@ -91,11 +95,16 @@
 									<i class="fa-solid fa-envelope"></i>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link text" href="{{ path('app_cart') }}">Panier
-								</a>	
-							</li>
 
+							{# Si Admin il n'affiche pas le panier #}
+							{% if not is_granted('ROLE_ADMIN') %}
+								<li class="nav-item">
+									<a class="nav-link text" href="{{ path('app_cart') }}">Panier
+									</a>	
+								</li>
+							{% endif %}
+
+							{# Si seulement Admin peut y avoir accès #}
 							{% if is_granted('ROLE_ADMIN') %}
 								<li class="nav-item">
 									<a class="nav-link text" href="{{ path('app_admin') }}">Admin</a>
@@ -157,12 +166,17 @@
 					<a class="btn btn-outline-light btn-floating m-1" href="https://wa.me/+33614993917" target="_blank" role="button">
 						<i class="fa-brands fa-whatsapp"></i>
 					</a>
+
+					<!-- YouTube -->
+					<a class="btn btn-outline-light btn-floating m-1" href="https://www.youtube.com/" role="button" target="_blank">
+						<i class="fa-brands fa-youtube"></i>
+					</a>
 				</section>
 
 				<!-- Section: Social media -->
 			</div>
 			<!-- Grid container -->
-			<hr style="width: 30%; margin: auto; height: 1px solid white !important;"></hr>
+			<hr style="width: 35%; margin: auto; height: 1px solid white !important;"></hr>
 		<!-- Copyright -->
 			<div class="text-center p-3">
 				<div class="text-center adresse">

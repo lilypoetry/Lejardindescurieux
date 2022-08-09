@@ -7,14 +7,23 @@
 	{{ parent() }}
 	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/button.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
 
 
-	<div class="container wrapper py-6">
-		<h1 class="top">Mon panier
-			{{ quantityCart }}</h1>
+	<div class="container wrapper py-5">
+		<div class="d-flex justify-content-between">
+			<h3 class="top">Mon panier :
+				{{ quantityCart }}
+				article(s)</h3>	
+			<div>
+				<a class="text-decoration-none btn btn-secondary btn-sm" href="{{ path('app_home') }}">
+					<i class="fa-solid fa-square-caret-left"></i>Retour à la liste
+				</a>
+			</div>		
+		</div>
 		<table class="table">
 			<thead>
 				<tr>
@@ -22,46 +31,49 @@
 					<th scope="col">Article</th>
 					<th scope="col">Quantité</th>
 					<th scope="col">Prix unité</th>
-					<th scope="col">Prix/produit</th>
-					<th scope="col">Action</th>
+					<th scope="col">Prix par produit</th>
+					{# <th scope="col">Action</th> #}
 				</tr>
 			</thead>
 			<tbody>
 				{% for element in dataCart %}
 					<tr>
-						
+
 						<td><img src="imgs/covers/{{ element.article.cover }}" alt="{{element.article.title}}" width="70px"></td>
 						<td>{{element.article.title}}</td>
 						<td>
-							<a href="{{path('add_cart', {'id' : element.article.id})}}">
-								<i class="fa-solid fa-plus"></i>
-							</a>
-							<div class="d-flex justify-content-space-between">{{element.quantity}}</div>
-							<a href="{{path('remove_cart', {'id' : element.article.id})}}">
-								<i class="fa-solid fa-minus"></i>
-							</a>
+							<div class="d-flex justify-content-between text-decoration-none">
+								<a class="text-decoration-none" href="{{path('add_cart', {'id' : element.article.id})}}">
+									<i class="fa-solid fa-square-plus"></i>
+								</a>
+
+								<div class="d-flex text-end">{{element.quantity}}</div>
+								<a class="text-decoration-none" href="{{path('remove_cart', {'id' : element.article.id})}}">
+									<i class="fa-solid fa-square-minus"></i>
+								</a>
+							</div>
+							<div class="d-flex justify-content-between pt-2">
+								<a class="btn-sup text-center" href="{{ path('delete_cart', { 'id' : element.article.id }) }}">
+									<i class="fa-solid fa-trash-can"></i>
+									Supprimer
+								</a>
+							</div>
 						</td>
 
 						<td class="text-end">{{(element.article.price)|number_format(2,',',' ')}}
 							€</td>
 						{#<td>{{dataCarts.article.total}}</td>#}
-						<td class="text-end">{{(element.quantity * element.article.price)|number_format(2,',',' ')}} €</td>
-						<td class="space-between">
-							<a class="btn-sup text-decoration-none" href="{{ path('delete_cart', { 'id' : element.article.id }) }}">
-								<i class="fa-solid fa-trash-can"></i>
-								Supprimer
-							</a>
-						</td>		
+						<td class="text-end">{{(element.quantity * element.article.price)|number_format(2,',',' ')}}
+							€</td>
 					</tr>
 				{% endfor %}
 				<tr>
-					<td colspan="4">Total</td>
-					<td class="text-end"> {{ (total) | number_format(2,',',' ') }} €</td>
+					<td colspan="4" class="fw-bold">Total</td>
+					<td class="text-end fw-bold">
+						{{ (total) | number_format(2,',',' ') }}
+						€</td>
 				</tr>
 			</tbody>
 		</table>
-
-
-		{# {{ dump() }} #}
 	</div>
 {% endblock %}
