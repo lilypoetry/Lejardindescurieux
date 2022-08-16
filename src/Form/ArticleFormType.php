@@ -40,6 +40,7 @@ class ArticleFormType extends AbstractType
                 'required' => false,
                 'attr' => ['rows' => 3]
             ])
+            //->add('coverFile', VichImageType::class, 
             ->add('coverFile', VichImageType::class, 
             [
                 'label' => 'Image',
