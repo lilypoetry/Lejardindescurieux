@@ -55,6 +55,10 @@ class AdminController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 7a18dc3c266707305957159872f6273605c424ed
         yield MenuItem::section('Mon Commerce', 'fa fa-home');
 
         // Menu pour le produit
@@ -77,11 +81,24 @@ class AdminController extends AbstractDashboardController
             MenuItem::linkToCrud('Afficher', 'fas fa-eye', User::class)
         ]);
 
+<<<<<<< HEAD
+=======
+=======
+
+        // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+>>>>>>> 6da987df0a85de2aa3bec20a251f887df6ca2eab
+>>>>>>> 7a18dc3c266707305957159872f6273605c424ed
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
 
         return [
             MenuItem::linkToDashboard('Home', 'fa fa-home')
         ];
+
+
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
+
     }
     
     
