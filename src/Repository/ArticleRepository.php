@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Proxies\__CG__\App\Entity\Article as EntityArticle;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -39,7 +40,7 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    // Fonction pour un bar de recherche pour
+    // Fonction pour la barre de recherche
     public function findArticlesByName(string $query)
     {
         $qb = $this->createQueryBuilder('p');
@@ -47,7 +48,7 @@ class ArticleRepository extends ServiceEntityRepository
             $qb->expr()->andX(
                 $qb->expr()->orX(
                     $qb->expr()->like('p.title', ':query'),
-                    $qb->expr()->like('p.description', ':query'),          
+                    $qb->expr()->like('p.description', ':query'),      
                 ),
                 $qb->expr()->isNotNull('p.updated_at')
             ),
@@ -57,6 +58,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+   
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

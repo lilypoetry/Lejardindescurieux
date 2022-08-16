@@ -1,0 +1,131 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Administrateur
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/button.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/sort.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+
+	<div class="container py-5">
+		{% if articles is not empty %}
+			<form class="col-lg-12 d-none d-lg-block list-inline-item d-flex" role="search" action="{{ path('app_admin') }}">
+				<input class="form-control me-2" name="query" type="search" placeholder="Rechercher article" aria-label="Search">
+			</form>
+		{% else %}
+			<div class="row">
+				<p class="col-12 text-center alert alert-warning">Il n'y a aucun résultat pour votre recherche.</p>
+			</div>			
+		{% endif %}
+		
+		{# Afficher le message success #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success pt-2" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<div class="d-flex align-items-center justify-content-between pt-4">
+			<h1 class='d-flex'>Liste des articles</h1>
+			{% if is_granted('ROLE_ADMIN') %}
+				<a href="{{ path('admin_new_article') }}" class="btn button btn-secondary btn-sm text-end">
+					Ajouter <i class="fa-solid fa-plus"></i>
+				</a>
+			{% endif %}
+		</div>
+
+		<div class="py-3">
+			<form
+				method="GET">
+				{# ?numbers=3 #}
+				<label for="numbers">Nombre d'article par page</label>
+				<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+				<select name="numbers" id="numbers" onchange="this.form.submit();">
+					<option value="100">Tous les articles</option>
+					<option value="10">10 articles</option>
+					<option value="5">5 articles</option>
+				</select>
+			</form>
+		</div>
+
+		<table class="table table-hover" id="myTable2">
+			<thead>
+				<tr>
+					<th scope="col">Photo</th>
+					<th scope="col" onclick="sortTable(0)">Article
+						<i class="fa-solid fa-angles-down"></i>
+					</th>
+					<th scope="col" onclick="sortTable(1)">Catégorie
+						<i class="fa-solid fa-angles-down"></i></th>
+					<th scope="col">Quantité</th>
+					<th scope="col">Prix</th>
+					<th class="text-center" scope="col">Actions</th>
+				</tr>
+			</thead>
+
+			{# {% if is_granted('ROLE_ADMIN') %} #}
+			{# {% endif %} #}
+			<tbody>
+				{% for article in articles %}
+					<tr>
+						<td class="py-3">
+							<a class="text-decoration-none" href="{{ path('admin_detail_article', {id: article.id })}}">
+								<img src="imgs/covers/{{ article.cover }}" alt="" width="70px">
+							</a>
+						</td>
+						<td class="py-3">{{ article.title }}</td>
+						<td class="py-3">{{ article.category.name }}</td>
+						<td>{{ article.stock }}</td>
+						<td>{{ article.price }}
+							€</td>
+						{% if is_granted('ROLE_ADMIN') %}
+							<td>
+								<ul class="list d-flex justify-content-between">
+									<div>
+										<a class="text-decoration-none" href="{{ path('admin_edit_article', { id : article.id }) }}" title="Editer cet article">
+											<button class="btn btn-edit">
+												<i class="fa-solid fa-pencil"></i> Editer
+											</button>
+										</a>
+									</div>
+									<div>
+										<a class="text-decoration-none" href=""></a>
+										<form action="{{ path('admin_delete_article', { id: article.id } ) }}" method="post" class="d-inline" title="Supprimer cet article">
+											<input type="hidden" name="token" value="{{ csrf_token('delete-article-'~ article.id) }}">
+											<button class="btn btn-sup">
+												<i class="fa-solid fa-trash-can"></i> Supprimer
+											</button>
+										</form>
+									</div>
+								</ul>
+							</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		{% if app.request.query.get('query') %}
+			<div class="returnDiv">
+				<a href="{{ path('app_admin') }}" class="btn btn-secondary btn-sm">
+					Retour <i class="fa-solid fa-left-long"></i>
+				</a>
+			</div>
+		{% endif %}
+		<div
+			class="knp">
+			{# Affiche la numérotations des pages #}
+			{{ knp_pagination_render(articles) }}
+		</div>
+	</div>
+{% endblock %}

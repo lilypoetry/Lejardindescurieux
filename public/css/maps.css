@@ -1,0 +1,5 @@
+/* La hauteur da la carte */
+#map { 
+    height: 400px; 
+    z-index: 1;
+} 

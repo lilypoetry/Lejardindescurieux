@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/contact.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/form.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    
+<div class="container formulaire pb-5">
+
+    <h2 class="text-white">Contactez-nous !</h2>
+    {{ form_start(form) }}
+		{{ form_row(form.name) }}
+		{{ form_errors(form.name) }}
+
+        {{ form_row(form.email) }}
+		{{ form_errors(form.email) }}
+
+		{{ form_row(form.message) }}
+		{{ form_errors(form.message) }}
+
+		{{ form_row(form.captcha) }}
+		{{ form_errors(form.captcha) }}
+
+        <button class="btn btn-secondary btn-sm">{{ button_label|default('Envoyer') }}</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

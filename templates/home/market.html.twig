@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+	{# Openstreetmaps #}
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
+	<link href="{{ asset('css/maps.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/sort.js') }}"></script>
+	{#  Openstreetmaps #}
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+	<script src="{{ asset('js/maps.js') }}"></script>
+	{% endblock %}
+
+{% block title %}Nos marchés
+{% endblock %}
+
+{% block body %}
+
+	<div class="container w-60">
+
+		{% if markets is not empty %}
+			<form class="col-lg-12 d-none d-lg-block list-inline-item d-flex" role="search" action="{{ path('market') }}">
+				<input class="form-control me-2" name="query" type="search" placeholder="Rechercher un marché" aria-label="Search">
+			</form>
+		{% else %}
+			<div class="row">
+				<p class="col-12 text-center alert alert-warning">Il n'y a aucun résultat pour votre recherche.</p>
+			</div>
+		{% endif %}
+		<div class="row">
+			{# Placer la carte dans le div #}
+			<div class="py-4 carte">
+				<div id="map"></div>
+				<!-- Cette DIV affichera la carte -->
+				<div id="detailsMap"></div>			
+			</div>
+		</div>
+
+		<h3>Retrouvons nous nombreux !</h3>
+
+		<div class="py-1">
+			<form method="GET">
+				<label for="numbers">Nombre d'article par page</label>
+				<input type="hidden" name="page" value="{{ app.request.query.get('page', 1) }}">
+				<select name="numbers" id="numbers" onchange="this.form.submit();">
+					<option value="5">Choisissez une option</option>
+					<option value="6">6 par page</option>
+					<option value="5">5 par page</option>
+					<option value="3">3 par page</option>
+				</select>
+			</form>
+		</div>
+
+		<table class="table table-hover id=" mytable2"">
+			<thead>
+				<tr>
+					<th scope="col">Thème</th>
+					<th scope="col">Adresse</th>
+					<th scope="col" onclick="sortTable(0)">Début</th>
+					<th scope="col">Fin</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for market in markets %}
+					<tr>
+						<td>{{ market.name }}</td>
+						<td>{{ market.addresse }},
+							{{ market.zipcode }}
+							-
+							{{ market.city }}</td>
+						<td>{{ market.createdAt | date('d/m/Y')}}</td>
+						<td>{{ market.updatedAt | date('d/m/Y')}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div>
+			{{ knp_pagination_render(markets) }}
+		</div>
+	</div>
+
+{% endblock %}

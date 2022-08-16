@@ -1,26 +1,49 @@
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer le compte !{% endblock %}
+{% block title %}Editer le compte !
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/form.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
-    {# Afficher les d'etail d'utilisateur #}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-    <div class="container">
-     {# <link href="{{ asset('css/style.css') }}" rel="stylesheet"> #}
+	<div class="example-wrapper formulaire">
+		{# Afficher les d'etail d'utilisateur #}
 
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-        <h1>Bonjour {{ app.user.firstname }} </h1>
-        <p>Veuillez-completer votre compte !</p>
+		{# <link href="{{ asset('css/style.css') }}" rel="stylesheet"> #}
 
-      
-        {{ form(form) }}
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success"> {{ message }}
+			</div>
+		{% endfor %}
+		<h1>Bonjour
+			{{ app.user.firstname }}
+		</h1>
+		<p>Veuillez-completer votre compte !</p>
 
-    </div>
+
+		{# {{ form(form) }} #}
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn btn-secondary btn-sm">{{ button_label|default('Enregistrer') }}</button>
+		{{ form_end(form) }}
+	</div>
 
 
 {% endblock %}

@@ -54,10 +54,10 @@ class ArticleFormType extends AbstractType
                 'label' => 'Nom de la catégorie',
                 'required' => false
             ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Enregistrer',
-                'attr' => ['class' => 'editButton']
-            ])
+            // ->add('save', SubmitType::class, [
+            //     'label' => 'Enregistrer',
+            //     'attr' => ['class' => 'editButton']
+            // ])
         ;
     }
 

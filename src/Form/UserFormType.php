@@ -52,9 +52,9 @@ class UserFormType extends AbstractType
                 'label' => 'Téléphone',
                 'required' => true
             ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Enregistrer'
-            ])
+            // ->add('save', SubmitType::class, [
+            //     'label' => 'Enregistrer'
+            // ])
             // ->add('isVerified')
         ;
     }

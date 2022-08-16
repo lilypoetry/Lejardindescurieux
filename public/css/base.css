@@ -1,7 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Arima:wght@100;200;300;400;500;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 /* corp de page*/
 body {
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Arima', cursive; */
     background-color: #ffffff;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -9,7 +12,12 @@ body {
 }
 
 :root {
-    --white: white;
+    --green: #12492f;
+    --cream: #ffca7a;
+    --yellow: #f0932b;
+    --brown: #ab4327;
+    --white: #ffffff;
+    --aliceblue: aliceblue;
     --black: black;
 }
 

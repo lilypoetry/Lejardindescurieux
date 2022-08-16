@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/about.css') }}" rel="stylesheet">	
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
+
+{% block title %}Qui sommes nous
+{% endblock %}
+
+{% block body %}	
+	
+	<div class="blok">		
+        <section>
+            <img src="/imgs/covers/riziere.jpg" alt="">
+            <div class="py-5">
+                <h3>Qui sommes nous ?</h3>
+                <p class="mot">
+                    Lejardindescurieux est une société artisante avec un nom propre depuis 2006.
+                    En vacance à Bali en 2005, je suis tombé amouroux du pays et des produits de décoration
+                    fabriqués par les artisants locaux .
+                </p>
+                <p class="mot">
+                    Notre produits sont fabriqués avec soins par notre 10 ateliers à Bali.
+                    Ce sont pour la décoration interieur et exterieur en metal.
+                </p>
+                <P class="mot">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, officiis harum perspiciatis cupiditate aliquid est nemo incidunt vero praesentium repudiandae blanditiis quidem consequatur voluptatem, iure molestias dignissimos laborum provident ut.
+                </P>
+                <P class="mot">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate provident delectus a officia ducimus ullam quia repudiandae officiis soluta optio maxime hic libero, assumenda voluptatibus! Amet minima tempore ipsa ullam.</P>
+            </div>
+        </section>
+	</div>
+
+{% endblock %}

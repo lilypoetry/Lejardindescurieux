@@ -1,0 +1,68 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Arima:wght@100;200;300;400;500;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+  --blue: #124559;
+  --black: black;
+  --metal: #464E2E;
+  --silver: #a5b1c2;
+  --white: #ffffff;
+  --brown: #b36700;  
+  --yellow: #f0932b;
+}
+
+body {
+  margin: 0;
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+  /* font-family: 'Inter', sans-serif; */
+  font-family: 'Poppins', sans-serif;
+  /* font-weight: 500;  */
+  position: relative;
+}
+
+.navbar { 
+  top: 0;
+  width: 100%;
+  /* Full width */
+  z-index: 1;
+  /* box-sizing: border-box; */
+  box-shadow: 0 2px 5px rgba(128, 130, 134, 0.945);
+  position: fixed;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  display: block;
+  color: var(--white);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Background de la navbar */
+body .bg {
+  background: var(--blue);
+  /* background: transparent; */
+}
+
+.logo {
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+  color: var(--brown) !important;
+  font-size: 1.7rem;
+  font-weight: bolder;
+}
+
+ul li {
+  font-size: 0.9rem;
+  /* font-weight: 500; */
+  font-weight: bolder;
+}
+
+.text {
+  color: white;
+}
+
+.text:hover, .fa-solid:hover {
+  color: yellow;
+}

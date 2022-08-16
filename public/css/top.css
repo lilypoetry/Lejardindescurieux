@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+body {
+    margin-top: 100px; /* Add a top margin to avoid content overlay */
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    /* font-family: 'Inter', sans-serif; */
+    font-family: 'Poppins', sans-serif;
+    background: #bad6e0;
+}
+
+ .wrapper {
+  margin: 1em auto;
+  max-width: 800px;
+  width: 100%;
+  align-items: center;
+}
+
+h1 .top {
+  margin-top: 100px !important;
+}
+
+@media (max-width: 700px) {
+  h1 .top {
+    margin-top: 300px !important;
+  }
+}
+/*.wrapper code {
+  background: #F5F5F5;
+  padding: 2px 6px;
+} */
+
+/* body .container {
+  line-height: -1;
+} */

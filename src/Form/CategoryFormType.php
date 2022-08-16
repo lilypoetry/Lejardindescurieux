@@ -18,10 +18,10 @@ class CategoryFormType extends AbstractType
                 'label' => 'Nom de la catégorie',
                 'required' => false
             ])
-            ->add('category', SubmitType::class, [
-                'label' => 'Enregistrer',
-                'attr' => ['class' => 'save']
-            ])
+            // ->add('category', SubmitType::class, [
+            //     'label' => 'Enregistrer',
+            //     'attr' => ['class' => 'save']
+            // ])
         ;
     }
 

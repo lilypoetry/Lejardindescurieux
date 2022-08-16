@@ -2,14 +2,21 @@
 
 {% block title %}Reset your password{% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/form.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/button.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
-    <div class="container w-50 py-4">
-        <h1>Réinitialiser mon mot de passe</h1>
+    <div class="container formulaire py-4">
+        <h3 class="reset">Réinitialiser mon mot de passe</h3>
 
         {{ form_start(resetForm) }}
             {{ form_row(resetForm.plainPassword) }}
-            <button class="btn btn-primary">Reset password</button>
+            <button class="btn-reg">Reset password</button>
         {{ form_end(resetForm) }}
 
     </div>

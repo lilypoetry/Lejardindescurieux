@@ -1,0 +1,25 @@
+  .formulaire {    
+    width: 500px;
+    padding: 20px;
+    align-items: center;
+    /* transform: translate(-50%, -50%); */
+    background: rgba(162, 171, 197, 0.5);
+    /* box-sizing: border-box; */
+    /* box-shadow: 0 10px 15px rgba(31, 30, 30, 0.6); */
+    border-radius: 5px;
+  }
+  
+  .formulaire h3 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #124559;
+    text-align: center;
+  }
+  
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .formulaire, input[type=submit] {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

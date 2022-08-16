@@ -1,14 +1,28 @@
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Account Utilisateur !
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/top.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/compte.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
-	
-
-	<div class="container py-4">
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+	<div class="example-wrapper py-4 col">
 
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
@@ -16,25 +30,12 @@
 			</div>
 		{% endfor %}
 
-		<div class="d-flex align-items-center justify-content-between">
-			<h3>Bienvenue
+		<div class="d-block align-items-center justify-content-between">
+			<h3 class="py-3">Bienvenue
 				<span class="text-primary text-capitalize">
 					{{ app.user.firstname }}
 				</span>
 			</h3>
-
-			{# Demander à utilisateur de completer ses donnée #}
-			<a href="{{ path('edituser', { id: app.user.id }) }}" class=" btn btn-outline-warning">
-				Completer vos données
-			</a>
-		</div>
-
-		<a class="btn btn-outline-warning" type="button" href="#">Ajouter un article</a>
-		{% if is_granted('ROLE_ADMIN') %}
-			<a class="btn btn-outline-warning" type="button" href="{{ path('admin') }}">Tableau de bord</a>
-		{% endif %}
-
-		<div class="py-4">
 			<p>Téléphone :
 				{{ app.user.phone }}</p>
 			<p>Email :
@@ -43,41 +44,12 @@
 				{{ app.user.zipcode }}
 				- Ville :
 				{{ app.user.city }}</p>
+
+			{# Demander à utilisateur de completer ses donnée #}
+			<a href="{{ path('edituser', { id: app.user.id }) }}" class=" btn btn-secondary btn-sm">
+				Completer vos données
+			</a>
 		</div>
-
-		{# Voir annonce de l'utilisateur #}
-		<h3>Mon panier</h3>
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">Date de commande</th>
-					<th scope="col">Nom de l'article</th>
-					<th scope="col">Quantité</th>
-					<th scope="col">Prix unité</th>
-					<th scope="col">Total</th>
-					<th scope="col">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>€</td>
-					<td>€</td>
-					<td class="d-flex">
-						<ul>
-							<a href="#">Editer</a>
-						</ul>
-						<ul>
-							<a href="#">Supprimer</a>
-						</ul>						
-					</td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
-
 
 {% endblock %}

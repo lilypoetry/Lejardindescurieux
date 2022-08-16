@@ -42,16 +42,17 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
             ]
         );
     }
-
+   
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
+        // Si roles = admin, redirect to administrateur page
+        $user = $token->getUser();
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_admin'));
         }
-
-        // Supprimer/désactiver la ligne 54 et à la ligne 53 diriger vers une route app_home:
+        
+        // Sinon vers une route app_home:
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string
